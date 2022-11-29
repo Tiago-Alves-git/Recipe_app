@@ -7,7 +7,7 @@ import App from '../App';
 describe('Testes do componente <Login />', () => {
   const testIdEmail = 'email-input';
   const testIdSenha = 'password-input';
-  const testIdButton = 'login-submit-btn'
+  const testIdButton = 'login-submit-btn';
   it('Testa se os inputs são exibidos na tela', () => {
     renderWithRouterAndRedux(<App />);
     expect(screen.getByTestId(testIdEmail)).toBeInTheDocument();
