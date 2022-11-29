@@ -1,12 +1,14 @@
 import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Route, Switch } from 'react-router-dom';
+import Login from './pages/Login';
 
 function App() {
   return (
-    <div>
-      <h2>NOSSO PROJETO</h2>
-    </div>
+    <Switch>
+      <Route exact path="/" component={ Login } />
+    </Switch>
   );
 }
 
