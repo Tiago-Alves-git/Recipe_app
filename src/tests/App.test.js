@@ -1,10 +1,25 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { screen } from '@testing-library/react';
+import { renderWithRouterAndRedux } from '../helpers/renderWith';
 import App from '../App';
 
-test('Farewell, front-end', () => {
-  // Este arquivo pode ser modificado ou deletado sem problemas
-  render(<App />);
-  const linkElement = screen.getByText(/TRYBE/i);
-  expect(linkElement).toBeInTheDocument();
+describe('Testes do componente <Login />', () => {
+  it('Testa se os inputs são exibidos na tela', () => {
+    renderWithRouterAndRedux(<App />);
+    expect(screen.getByTestId('email-input')).toBeInTheDocument();
+    expect(screen.getByTestId('password-input')).toBeInTheDocument();
+  });
+  it('Testa se o botão é exibido na tela', () => {
+    renderWithRouterAndRedux(<App />);
+    expect(screen.getByTestId('login-submit-btn')).toBeInTheDocument();
+  });
+  it('Testa de o botão é ativado após o preenchimento dos correto dos campos', () => {
+    renderWithRouterAndRedux(<App />);
+    const inputEmail = screen.getByTestId('email-input');
+    const inputPassword = screen.getByTestId('password-input');
+    userEvent.type(inputEmail, 'email@teste.com');
+    userEvent.type(inputPassword, '1234567');
+    expect(screen.getByTestId('login-submit-btn')).not.toBeDisabled();
+  });
 });
