@@ -1,5 +1,7 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
+import { actionLogin } from '../redux/actions';
 
 class Login extends React.Component {
   constructor() {
@@ -34,12 +36,19 @@ class Login extends React.Component {
     return !result;
   };
 
+  changePage = () => {
+    const { email } = this.state;
+    const { history, dispatch } = this.props;
+    dispatch(actionLogin(email));
+    localStorage.setItem('user', JSON.stringify({ email }));
+    history.push('/meals');
+  };
+
   render() {
     const { email, senha, button } = this.state;
     return (
       <div>
         <form>
-
           <label htmlFor="e-mail">
             E-mail:
             <input
@@ -70,7 +79,7 @@ class Login extends React.Component {
           type="button"
           disabled={ button }
           data-testid="login-submit-btn"
-          onClick={ () => {} }
+          onClick={ this.changePage }
         >
           Entrar
         </button>
@@ -79,5 +88,12 @@ class Login extends React.Component {
     );
   }
 }
+
+Login.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default connect()(Login);
