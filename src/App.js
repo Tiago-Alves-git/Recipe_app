@@ -1,8 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import createStore from './store';
-
+import store from './redux/store';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Meals from './pages/Meals';
@@ -16,7 +15,7 @@ import './App.css';
 
 function App() {
   return (
-    <Provider store={ createStore() }>
+    <Provider store={ store }>
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={ Login } />
