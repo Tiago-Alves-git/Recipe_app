@@ -2,9 +2,9 @@ import React from 'react';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
-import { applyMiddleware, createStore } from 'redux';
 import { render } from '@testing-library/react';
-import rootReducer from '../redux/reducers';
+
+import createStore from '../store';
 
 function withRouter(component, history) {
   return (
@@ -35,11 +35,8 @@ export function renderWithRouter(
   };
 }
 
-export function renderWithRedux(component, options = {}) {
-  const {
-    initialState = {},
-    store = createStore(rootReducer, initialState, applyMiddleware()),
-  } = options;
+export function renderWithRedux(component) {
+  const store = createStore();
 
   return {
     ...render(withRedux(component, store)),
@@ -54,7 +51,7 @@ export function renderWithRouterAndRedux(component, options = {}) {
   } = options;
 
   return {
-    ...renderWithRedux(withRouter(component, history), options),
+    ...renderWithRedux(withRouter(component, history)),
     history,
   };
 }
