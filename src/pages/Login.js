@@ -7,7 +7,7 @@ class Login extends React.Component {
   constructor() {
     super();
     this.state = {
-      emaiL: '',
+      email: '',
       senha: '',
       button: true,
     };
@@ -23,12 +23,12 @@ class Login extends React.Component {
   };
 
   validaForm = () => {
-    const { emaiL, senha } = this.state;
+    const { email, senha } = this.state;
     const number = 7;
 
     const emailRegex = /\S+@\S+\.\S+/;
     const validPassword = senha.length >= number;
-    const result = emailRegex.test(emaiL) && validPassword;
+    const result = emailRegex.test(email) && validPassword;
 
     this.setState({
       button: !result,
@@ -37,28 +37,27 @@ class Login extends React.Component {
   };
 
   changePage = () => {
-    const { emaiL } = this.state;
+    const { email } = this.state;
     const { history, dispatch } = this.props;
-    dispatch(actionLogin(emaiL));
-    localStorage.setItem('user', JSON.stringify({ email: emaiL }));
+    dispatch(actionLogin(email));
+    localStorage.setItem('user', JSON.stringify({ email }));
     history.push('/meals');
   };
 
   render() {
-    const { emaiL, senha, button } = this.state;
+    const { email, senha, button } = this.state;
     return (
       <div>
         <form>
-
           <label htmlFor="e-mail">
             E-mail:
             <input
               type="text"
-              name="emaiL"
+              name="email"
               id="e-mail"
               data-testid="email-input"
               onChange={ this.handleInputChange }
-              value={ emaiL }
+              value={ email }
             />
           </label>
 
