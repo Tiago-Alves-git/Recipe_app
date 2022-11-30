@@ -2,8 +2,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
-import Drinks from './pages/Drinks';
-import Foods from './pages/Foods';
 import Login from './pages/Login';
 
 function App() {
