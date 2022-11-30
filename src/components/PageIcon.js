@@ -1,19 +1,25 @@
 import PropTypes from 'prop-types';
 
-import { ReactComponent as IconMeal } from '../images/mealIcon.svg';
-import { ReactComponent as IconDrink } from '../images/drinkIcon.svg';
-import { ReactComponent as IconBlackHeart } from '../images/blackHeartIcon.svg';
-import { ReactComponent as IconProfile } from '../images/profileIcon.svg';
+import IconMeal from '../images/mealIcon.svg';
+import IconDrink from '../images/drinkIcon.svg';
+import IconBlackHeart from '../images/blackHeartIcon.svg';
+import IconProfile from '../images/profileIcon.svg';
 
 function PageIcon(props) {
   const { title } = props;
 
-  if (title === 'meals') return <IconMeal />;
-  if (title === 'drinks') return <IconDrink />;
-  if (title === 'profile') return <IconProfile />;
-  if (title === 'favorites') return <IconBlackHeart />;
+  const getIcon = () => {
+    const lowerCaseTitle = title.toLowerCase();
 
-  return <div />;
+    if (lowerCaseTitle === 'meals') return IconMeal;
+    if (lowerCaseTitle === 'drinks') return IconDrink;
+    if (lowerCaseTitle === 'profile') return IconProfile;
+    if (lowerCaseTitle === 'favorites') return IconBlackHeart;
+
+    return '';
+  };
+
+  return <img src={ getIcon() } alt={ title } />;
 }
 
 PageIcon.propTypes = {

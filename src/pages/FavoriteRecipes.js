@@ -2,7 +2,7 @@ import Header from '../components/Header';
 
 function FavoriteRecipes() {
   return (
-    <Header />
+    <Header title="Favorite Recipes" />
   );
 }
 

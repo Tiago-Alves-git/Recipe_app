@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 
 import PageIcon from './PageIcon';
-import { ReactComponent as IconProfile } from '../images/profileIcon.svg';
-import { ReactComponent as IconSearch } from '../images/searchIcon.svg';
+import IconProfile from '../images/profileIcon.svg';
+import IconSearch from '../images/searchIcon.svg';
 
 function Header(props) {
   const { search, title } = props;
@@ -15,9 +15,10 @@ function Header(props) {
           <b>app</b>
         </span>
         {
-          search || <IconSearch data-testid="search-top-btn" />
+          search
+            && <img src={ IconSearch } alt="search" data-testid="search-top-btn" />
         }
-        <IconProfile data-testid="profile-top-btn" />
+        <img src={ IconProfile } alt="profile" data-testid="profile-top-btn" />
       </nav>
       <div>
         <PageIcon title={ title } />
