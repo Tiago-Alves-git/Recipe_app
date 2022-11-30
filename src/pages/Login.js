@@ -60,7 +60,6 @@ class Login extends React.Component {
               value={ email }
             />
           </label>
-
           <label htmlFor="senha">
             Senha:
             <input
@@ -72,9 +71,7 @@ class Login extends React.Component {
               value={ senha }
             />
           </label>
-
         </form>
-
         <button
           type="button"
           disabled={ button }
@@ -83,7 +80,6 @@ class Login extends React.Component {
         >
           Entrar
         </button>
-
       </div>
     );
   }
