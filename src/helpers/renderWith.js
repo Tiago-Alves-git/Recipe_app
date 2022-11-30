@@ -1,10 +1,10 @@
-import React from 'react';
+import { render } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
+import React from 'react';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
-import { render } from '@testing-library/react';
-
-import createStore from '../store';
+import { applyMiddleware, createStore } from 'redux';
+import rootReducer from '../redux/reducers';
 
 function withRouter(component, history) {
   return (
@@ -35,8 +35,11 @@ export function renderWithRouter(
   };
 }
 
-export function renderWithRedux(component) {
-  const store = createStore();
+export function renderWithRedux(component, options = {}) {
+  const {
+    initialState = {},
+    store = createStore(rootReducer, initialState, applyMiddleware()),
+  } = options;
 
   return {
     ...render(withRedux(component, store)),
@@ -51,7 +54,7 @@ export function renderWithRouterAndRedux(component, options = {}) {
   } = options;
 
   return {
-    ...renderWithRedux(withRouter(component, history)),
+    ...renderWithRedux(withRouter(component, history), options),
     history,
   };
 }
