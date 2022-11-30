@@ -32,11 +32,11 @@ export const getDrinkByFilter = async (term) => {
 
 export const getDrink = (term, type) => {
   switch (type) {
-  case 'Primeira Letra':
+  case 'First letter':
     return getDrinkByFirstLetter(term);
-  case 'Nome':
+  case 'Name':
     return getDrinkByName(term);
-  case 'Ingrediente':
+  case 'Ingredient':
     return getDrinkByIngredient(term);
   default:
     return null;

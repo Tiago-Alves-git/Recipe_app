@@ -24,11 +24,11 @@ class SearchBar extends Component {
     event.preventDefault();
     const { path } = this.props;
     const { searchType, searchTerm } = this.state;
-    if (searchType === 'Primeira Letra' && searchTerm.length > 1) {
-      global.alert('Sua busca deve conter somente 1 (um) caracter');
+    if (searchType === 'First letter' && searchTerm.length > 1) {
+      global.alert('Your search must have only 1 (one) character');
       return null;
     }
-    if (path === 'drinks') {
+    if (path === '/drinks') {
       try {
         const drinks = await getDrink(searchTerm, searchType);
         console.log(`Resultados para ${searchTerm} e ${searchType}`, drinks);
@@ -37,7 +37,7 @@ class SearchBar extends Component {
         this.setState({ error: true });
       }
     }
-    if (path === 'foods') {
+    if (path === '/meals') {
       try {
         const meals = await getFood(searchTerm, searchType);
         console.log(`Resultados para ${searchTerm} e ${searchType}`, meals);
@@ -66,28 +66,28 @@ class SearchBar extends Component {
           <Form.Check
             inline
             data-testid="ingredient-search-radio"
-            label="Ingrediente"
+            label="Ingredient"
             name="group1"
             type="radio"
-            value="Ingrediente"
+            value="Ingredient"
             onChange={ this.setSearchType }
           />
           <Form.Check
             inline
             data-testid="name-search-radio"
-            label="Nome"
+            label="Name"
             name="group1"
             type="radio"
-            value="Nome"
+            value="Name"
             onChange={ this.setSearchType }
           />
           <Form.Check
             inline
             data-testid="first-letter-search-radio"
-            label="Primeira Letra"
+            label="First letter"
             name="group1"
             type="radio"
-            value="Primeira Letra"
+            value="First letter"
             onChange={ this.setSearchType }
           />
         </div>

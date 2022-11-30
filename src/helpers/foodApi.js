@@ -32,11 +32,11 @@ export const getFoodByFilter = async (term) => {
 
 export const getFood = (term, type) => {
   switch (type) {
-  case 'Primeira Letra':
+  case 'First letter':
     return getFoodByFirstLetter(term);
-  case 'Nome':
+  case 'Name':
     return getFoodByName(term);
-  case 'Ingrediente':
+  case 'Ingredient':
     return getFoodByIngredient(term);
   default:
     return null;
