@@ -7,7 +7,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <App />,
+  <BrowserRouter>
+    <Provider store={ store }>
+      <App />
+    </Provider>
+  </BrowserRouter>,
 );
 
 // If you want your app to work offline and load faster, you can change
