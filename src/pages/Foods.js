@@ -5,7 +5,7 @@ function Foods() {
   return (
     <div>
       <h1>Food</h1>
-      <SearchBar />
+      <SearchBar path="foods" />
     </div>
   );
 }

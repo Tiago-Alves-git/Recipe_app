@@ -1,23 +1,31 @@
 const getDrinkByIngredient = async (term) => {
-  const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${term}`);
+  const response = await fetch(
+    `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${term}`,
+  );
   const { drinks } = await response.json();
   return drinks;
 };
 
 const getDrinkByName = async (term) => {
-  const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${term}`);
+  const response = await fetch(
+    `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${term}`,
+  );
   const { drinks } = await response.json();
   return drinks;
 };
 
 const getDrinkByFirstLetter = async (term) => {
-  const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${term}`);
+  const response = await fetch(
+    `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${term}`,
+  );
   const { drinks } = await response.json();
   return drinks;
 };
 
 export const getDrinkByFilter = async (term) => {
-  const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${term}`);
+  const response = await fetch(
+    `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${term}`,
+  );
   const { drinks } = await response.json();
   return drinks;
 };
