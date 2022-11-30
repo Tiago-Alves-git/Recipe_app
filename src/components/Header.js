@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import PageIcon from './PageIcon';
@@ -18,7 +19,9 @@ function Header(props) {
           search
             && <img src={ IconSearch } alt="search" data-testid="search-top-btn" />
         }
-        <img src={ IconProfile } alt="profile" data-testid="profile-top-btn" />
+        <Link to="/profile">
+          <img src={ IconProfile } alt="profile" data-testid="profile-top-btn" />
+        </Link>
       </nav>
       <div>
         <PageIcon title={ title } />
