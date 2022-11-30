@@ -2,40 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 class Login extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      email: '',
-      senha: '',
-      button: true,
-    };
-  }
-
-  handleInputChange = (event) => {
-    const { name } = event.target;
-    const { target } = event;
-    const { value } = target;
-    this.setState({
-      [name]: value,
-    }, this.validaForm);
-  };
-
-  validaForm = () => {
-    const { email, senha } = this.state;
-    const number = 7;
-
-    const emailRegex = /\S+@\S+\.\S+/;
-    const validPassword = senha.length >= number;
-    const result = emailRegex.test(email) && validPassword;
-
-    this.setState({
-      button: !result,
-    });
-    return !result;
-  };
-
   render() {
-    const { email, senha, button } = this.state;
     return (
       <div>
         <form>
@@ -47,8 +14,7 @@ class Login extends React.Component {
               name="email"
               id="e-mail"
               data-testid="email-input"
-              onChange={ this.handleInputChange }
-              value={ email }
+              onChange={ () => {} }
             />
           </label>
 
@@ -59,8 +25,7 @@ class Login extends React.Component {
               name="senha"
               id="senha"
               data-testid="password-input"
-              onChange={ this.handleInputChange }
-              value={ senha }
+              onChange={ () => {} }
             />
           </label>
 
@@ -68,7 +33,6 @@ class Login extends React.Component {
 
         <button
           type="button"
-          disabled={ button }
           data-testid="login-submit-btn"
           onClick={ () => {} }
         >
