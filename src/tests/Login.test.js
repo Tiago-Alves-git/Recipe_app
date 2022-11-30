@@ -33,6 +33,6 @@ describe('Testes do componente <Login />', () => {
     userEvent.type(inputPassword, '1234567');
     const button = screen.getByTestId(testIdButton);
     userEvent.click(button);
-    expect(history.location.pathname).toBe('/');
+    expect(history.location.pathname).toBe('/meals');
   });
 });
