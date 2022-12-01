@@ -8,10 +8,8 @@ import PageIcon from './PageIcon';
 import SearchBar from './SearchBar';
 
 function Header(props) {
-  const { search, title, path } = props;
-
+  const { search, title } = props;
   const [searchOpen, setSearchOpen] = useState(false);
-
   return (
     <header>
       <nav>
@@ -43,7 +41,7 @@ function Header(props) {
         <span data-testid="page-title">{ title }</span>
       </div>
       {
-        searchOpen && (<SearchBar path={ path } />)
+        searchOpen && (<SearchBar />)
       }
     </header>
   );

@@ -15,7 +15,6 @@ function PageIcon(props) {
     if (lowerCaseTitle === 'drinks') return IconDrink;
     if (lowerCaseTitle === 'profile') return IconProfile;
     if (lowerCaseTitle === 'favorites') return IconBlackHeart;
-
     return '';
   };
 

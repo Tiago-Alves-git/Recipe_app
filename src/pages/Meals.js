@@ -2,7 +2,7 @@ import Header from '../components/Header';
 
 function Meals() {
   return (
-    <Header search title="Meals" path="/meals" />
+    <Header search title="Meals" />
   );
 }
 
