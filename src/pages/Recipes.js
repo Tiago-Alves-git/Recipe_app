@@ -6,7 +6,6 @@ import Header from '../components/Header';
 
 function Recipes() {
   const { pathname } = useLocation();
-
   const {
     categories,
     selectedCategory,
@@ -17,7 +16,7 @@ function Recipes() {
 
   return (
     <>
-      <Header search title="Meals" />
+      <Header search title={ pathname === '/meals' ? 'Meals' : 'Drinks' } />
       {
         categories.map((category) => (
           <button
