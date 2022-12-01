@@ -3,6 +3,7 @@ import useRecipes from '../hooks/useRecipes';
 import useCategories from '../hooks/useCategories';
 
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 function Recipes() {
   const { pathname } = useLocation();
@@ -58,6 +59,7 @@ function Recipes() {
           </div>
         ))
       }
+      <Footer />
     </>
   );
 }
