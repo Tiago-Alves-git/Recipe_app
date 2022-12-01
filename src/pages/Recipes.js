@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import useRecipes from '../hooks/useRecipes';
 import useCategories from '../hooks/useCategories';
 
@@ -11,32 +11,27 @@ function Recipes() {
     categories,
     selectedCategory,
     toggleSelectedCategory,
-    loading: categoryLoading,
   } = useCategories(pathname);
 
-  const { data: recipes, loading } = useRecipes(pathname, selectedCategory);
-
-  if (loading) return 'Loading...';
+  const { data: recipes } = useRecipes(pathname, selectedCategory);
 
   return (
     <>
       <Header search title="Meals" />
       {
-        categoryLoading
-          ? 'Loading categories...'
-          : categories.map((category) => (
-            <button
-              type="button"
-              key={ category.strCategory }
-              data-testid={ `${category.strCategory}-category-filter` }
-              className={
-                `${selectedCategory === category.strCategory ? 'selected' : ''}`
-              }
-              onClick={ () => toggleSelectedCategory(category.strCategory) }
-            >
-              { category.strCategory }
-            </button>
-          ))
+        categories.map((category) => (
+          <button
+            type="button"
+            key={ category.strCategory }
+            data-testid={ `${category.strCategory}-category-filter` }
+            className={
+              `${selectedCategory === category.strCategory ? 'selected' : ''}`
+            }
+            onClick={ () => toggleSelectedCategory(category.strCategory) }
+          >
+            { category.strCategory }
+          </button>
+        ))
       }
       <button
         type="button"
@@ -47,12 +42,17 @@ function Recipes() {
       </button>
       {
         recipes.map((recipe, i) => (
-          <div data-testid={ `${i}-recipe-card` } key={ recipe.id }>
-            <img
-              data-testid={ `${i}-card-img` }
-              src={ recipe.thumb }
-              alt={ recipe.name }
-            />
+          <div key={ recipe.id }>
+            <Link
+              to={ `/${pathname.slice(1)}/${recipe.id}` }
+              data-testid={ `${i}-recipe-card` }
+            >
+              <img
+                data-testid={ `${i}-card-img` }
+                src={ recipe.thumb }
+                alt={ recipe.name }
+              />
+            </Link>
             <span data-testid={ `${i}-card-name` }>{ recipe.name }</span>
           </div>
         ))
