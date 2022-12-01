@@ -1,5 +1,6 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { renderWithRouterAndRedux } from '../helpers/renderWith';
 import fetch from '../../cypress/mocks/fetch';
 import Recipes from '../pages/Recipes';
@@ -31,10 +32,16 @@ describe('Testes da pagina <Recipes /> na rota /meals', () => {
     expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
   });
 
-  it('Testa se existe 5 buttons de categoria', async () => {
+  it('Testa se o filtro Beef funciona', async () => {
     renderWithRouterAndRedux(<Recipes />, { initialEntries: ['/meals'] });
+    const filterBeef = await screen.findByTestId('Beef-category-filter');
+    userEvent.click(filterBeef);
+  });
 
-    expect(await screen.findAllByTestId(/-category-filter/)).toHaveLength(5);
+  it('Testa se o filtro de all funciona', async () => {
+    renderWithRouterAndRedux(<Recipes />, { initialEntries: ['/meals'] });
+    const filterAll = await screen.findByTestId('All-category-filter');
+    userEvent.click(filterAll);
   });
 });
 
@@ -65,9 +72,9 @@ describe('Testes da pagina <Recipes /> na rota /drinks', () => {
     expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
   });
 
-  it('Testa se existe 5 buttons de categoria', async () => {
+  it('Testa se o filtro de catedorias funciona', async () => {
     renderWithRouterAndRedux(<Recipes />, { initialEntries: ['/drinks'] });
-
-    expect(await screen.findAllByTestId(/-category-filter/)).toHaveLength(5);
+    const filterShake = await screen.findByTestId('Shake-category-filter');
+    userEvent.click(filterShake);
   });
 });

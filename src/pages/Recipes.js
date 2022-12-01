@@ -42,10 +42,12 @@ function Recipes() {
       </button>
       {
         recipes.map((recipe, i) => (
-          <div key={ recipe.id }>
+          <div
+            key={ recipe.id }
+            data-testid={ `${i}-recipe-card` }
+          >
             <Link
               to={ `/${pathname.slice(1)}/${recipe.id}` }
-              data-testid={ `${i}-recipe-card` }
             >
               <img
                 data-testid={ `${i}-card-img` }
