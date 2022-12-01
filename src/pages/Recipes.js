@@ -7,14 +7,14 @@ import Header from '../components/Header';
 function Recipes() {
   const { pathname } = useLocation();
 
-  const { data: recipes, loading } = useRecipes(pathname);
-
   const {
     categories,
     selectedCategory,
     toggleSelectedCategory,
     loading: categoryLoading,
   } = useCategories(pathname);
+
+  const { data: recipes, loading } = useRecipes(pathname, selectedCategory);
 
   if (loading) return 'Loading...';
 
@@ -38,6 +38,13 @@ function Recipes() {
             </button>
           ))
       }
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        onClick={ () => toggleSelectedCategory() }
+      >
+        All
+      </button>
       {
         recipes.map((recipe, i) => (
           <div data-testid={ `${i}-recipe-card` } key={ recipe.id }>

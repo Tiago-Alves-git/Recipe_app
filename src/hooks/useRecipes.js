@@ -2,10 +2,14 @@ import { useState, useCallback, useEffect } from 'react';
 
 const MAX_RECIPES = 12;
 
-const endpoint = (type) => {
-  if (type === 'meals') return 'https://www.themealdb.com/api/json/v1/1';
+const endpoint = (type, filter) => {
+  let url = 'https://www.thecocktaildb.com/api/json/v1/1';
+  if (type === 'meals') url = 'https://www.themealdb.com/api/json/v1/1';
 
-  return 'https://www.thecocktaildb.com/api/json/v1/1';
+  if (filter) url = `${url}/filter.php?c=${filter}`;
+  else url = `${url}/search.php?s=`;
+
+  return url;
 };
 
 const mapToSameAPI = (type) => (data) => {
@@ -24,7 +28,7 @@ const mapToSameAPI = (type) => (data) => {
   };
 };
 
-const useRecipes = (type) => {
+const useRecipes = (type, filter) => {
   type = type.slice(1);
 
   const [data, setData] = useState([]);
@@ -34,14 +38,14 @@ const useRecipes = (type) => {
   const loadData = useCallback(async () => {
     try {
       setLoading(true);
-      const res = await (await fetch(`${endpoint(type)}/search.php?s=`)).json();
+      const res = await (await fetch(endpoint(type, filter))).json();
       setData(res[type].slice(0, MAX_RECIPES).map(mapToSameAPI(type)));
     } catch (e) {
       setError(e.message);
     } finally {
       setLoading(false);
     }
-  }, [type]);
+  }, [type, filter]);
 
   useEffect(() => {
     loadData();
