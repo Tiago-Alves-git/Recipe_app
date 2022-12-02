@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { foodID } from '../services/foodAPI';
-import { drinkID } from '../services/drinkAPI';
+import { foodID } from '../helpers/foodApi';
+import { drinkID } from '../helpers/drinkApi';
 import ButtonStartRecipe from './ButtonStartRecipe';
 
 export default function RecipeDetails({ value }) {
@@ -24,7 +24,7 @@ export default function RecipeDetails({ value }) {
 
   useEffect(() => {
     fetchId();
-  }, []);
+  });
 
   return (
     <>
