@@ -7,6 +7,7 @@ import Drink from './pages/Drink';
 import Login from './pages/Login';
 import Meal from './pages/Meal';
 import Profile from './pages/Profile';
+import RecipeDetails from './components/RecipeDetails';
 
 import './App.css';
 
@@ -18,6 +19,17 @@ function App() {
 
       <Route exact path="/drinks" component={ Recipes } />
       <Route path="/drinks/:id/in-progress?" component={ Drink } />
+
+      <Route
+        exact
+        path="/meals/:id"
+        render={ () => <RecipeDetails value="meals" /> }
+      />
+      <Route
+        exact
+        path="/drinks/:id"
+        render={ () => <RecipeDetails value="drinks" /> }
+      />
 
       <Route exact path="/meals" component={ Recipes } />
       <Route path="/meals/:id/in-progress?" component={ Meal } />
