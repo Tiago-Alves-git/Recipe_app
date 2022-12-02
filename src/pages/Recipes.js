@@ -1,23 +1,24 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import useRecipes from '../hooks/useRecipes';
 import useCategories from '../hooks/useCategories';
+import useBasePath from '../hooks/useBasePath';
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 function Recipes() {
-  const { pathname } = useLocation();
+  const basePath = useBasePath();
   const {
     categories,
     selectedCategory,
     toggleSelectedCategory,
-  } = useCategories(pathname);
+  } = useCategories(basePath);
 
-  const { data: recipes } = useRecipes(pathname, selectedCategory);
+  const { data: recipes } = useRecipes(basePath, selectedCategory);
 
   return (
     <>
-      <Header search title={ pathname === '/meals' ? 'Meals' : 'Drinks' } />
+      <Header search title={ basePath === 'meals' ? 'Meals' : 'Drinks' } />
       {
         categories.map((category) => (
           <button
@@ -47,7 +48,7 @@ function Recipes() {
             data-testid={ `${i}-recipe-card` }
           >
             <Link
-              to={ `/${pathname.slice(1)}/${recipe.id}` }
+              to={ `/${basePath}/${recipe.id}` }
             >
               <img
                 data-testid={ `${i}-card-img` }

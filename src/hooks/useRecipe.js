@@ -1,18 +1,13 @@
 import { useState, useCallback, useEffect } from 'react';
 
-const MAX_RECIPES = 12;
-
-const endpoint = (type, filter) => {
-  let url = 'https://www.thecocktaildb.com/api/json/v1/1';
-  if (type === 'meals') url = 'https://www.themealdb.com/api/json/v1/1';
-
-  if (filter) url = `${url}/filter.php?c=${filter}`;
-  else url = `${url}/search.php?s=`;
+const endpoint = (type, id) => {
+  let url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+  if (type === 'meals') url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
 
   return url;
 };
 
-const mapToSameAPI = (type) => (data) => {
+const mapToSameAPI = (type, data) => {
   if (type === 'meals') {
     return {
       id: data.idMeal,
@@ -28,7 +23,7 @@ const mapToSameAPI = (type) => (data) => {
   };
 };
 
-const useRecipes = (type, filter) => {
+const useRecipe = (type, id) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState();
   const [loading, setLoading] = useState(true);
@@ -36,14 +31,15 @@ const useRecipes = (type, filter) => {
   const loadData = useCallback(async () => {
     try {
       setLoading(true);
-      const res = await (await fetch(endpoint(type, filter))).json();
-      setData(res[type].slice(0, MAX_RECIPES).map(mapToSameAPI(type)));
+      if (!id) throw Exception('recipe needs an id!');
+      const res = await (await fetch(endpoint(type, id))).json();
+      setData(mapToSameAPI(type, res[type][0]));
     } catch (e) {
       setError(e.message);
     } finally {
       setLoading(false);
     }
-  }, [type, filter]);
+  }, [type, id]);
 
   useEffect(() => {
     loadData();
@@ -56,4 +52,4 @@ const useRecipes = (type, filter) => {
   };
 };
 
-export default useRecipes;
+export default useRecipe;

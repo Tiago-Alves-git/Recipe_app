@@ -9,8 +9,6 @@ const endpoint = (type) => {
 };
 
 const useCategories = (type) => {
-  type = type.slice(1);
-
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategories] = useState();
   const [error, setError] = useState();
