@@ -6,8 +6,26 @@ body {
   font-family: 'Quicksand';
   height: 100vh;
   justify-content: center;
-  overflow: hidden;
+  overflow-y: scroll;
   width: 360px;
   height: 640px;
   background-color: tomato;
+}
+.recipeCard img{
+  width: 50px;
+  height: 50px;
+}
+.recipeCard{
+  width: 50px;
+  border: 1px solid black;
+}
+.recipeCard h3{
+  font-size: 16px;
+}
+.recipesContent{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 200px;
+  justify-content: space-between;
 }

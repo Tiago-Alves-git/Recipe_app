@@ -1,95 +1,105 @@
-import React, { Component } from 'react';
-import { Form } from 'react-bootstrap';
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import { connect } from 'react-redux';
+import { useHistory, useLocation } from 'react-router-dom';
 import { getDrink } from '../helpers/drinkApi';
 import { getFood } from '../helpers/foodApi';
+import DrinkCard from './DrinkCard';
+import MealCard from './MealCard';
 
-class SearchBar extends Component {
-  state = {
+function SearchBar() {
+  const [search, setSearch] = useState({
     searchTerm: '',
     searchType: '',
-    error: false,
-  };
+  });
+  const [recipes, setRecipes] = useState([]);
+  const [error, setError] = useState(false);
+  const location = useLocation();
+  const history = useHistory();
+  const TWELVE = 12;
 
-  setSearchType = ({ target: { value } }) => {
-    this.setState({ searchType: value });
-  };
+  function handleChange({ target: { value, id } }) {
+    setSearch({ ...search, [id]: value });
+  }
 
-  setSearchTerm = ({ target: { value } }) => {
-    this.setState({ searchTerm: value });
-  };
-
-  handleSubmit = async (event) => {
+  async function handleSubmit(event) {
     event.preventDefault();
-    const { path } = this.props;
-    const { searchType, searchTerm } = this.state;
-    if (searchType === 'Primeira Letra' && searchTerm.length > 1) {
-      global.alert('Sua busca deve conter somente 1 (um) caracter');
+    if (search.searchType === 'First letter' && search.searchTerm.length > 1) {
+      global.alert('Your search must have only 1 (one) character');
       return null;
     }
-    if (path === 'drinks') {
-      try {
-        const drinks = await getDrink(searchTerm, searchType);
-        console.log(`Resultados para ${searchTerm} e ${searchType}`, drinks);
-        this.setState({ error: false });
-      } catch (error) {
-        this.setState({ error: true });
+    try {
+      let data = [];
+      if (location.pathname === '/drinks') {
+        data = await getDrink(search.searchTerm, search.searchType);
+        if (data[0] && data.length === 1) {
+          history.push(`/drinks/${data[0].idDrink}`);
+        }
       }
-    }
-    if (path === 'foods') {
-      try {
-        const meals = await getFood(searchTerm, searchType);
-        console.log(`Resultados para ${searchTerm} e ${searchType}`, meals);
-        this.setState({ error: false });
-      } catch (error) {
-        console.log(error);
-        this.setState({ error: true });
+      if (location.pathname === '/meals') {
+        data = await getFood(search.searchTerm, search.searchType);
+        if (data[0] && data.length === 1) {
+          history.push(`/meals/${data[0].idMeal}`);
+        }
       }
+      setRecipes(data);
+      setError(false);
+    } catch (e) {
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+      setError(true);
     }
-  };
+  }
 
-  render() {
-    const { searchTerm, error } = this.state;
-    return (
-      <Form className="search-bar" onSubmit={ this.handleSubmit }>
-        <Form.Control
+  return (
+    <div>
+      <form className="search-bar" onSubmit={ handleSubmit }>
+        <input
           type="text"
           className="mb-2"
+          label="searchTerm"
+          id="searchTerm"
           placeholder="Buscar Receita"
           data-testid="search-input"
-          value={ searchTerm }
-          onChange={ this.setSearchTerm }
+          value={ search.searchTerm }
+          onChange={ handleChange }
         />
         {error && <h2>Não encontramos nenhuma receita</h2>}
         <div className="inline-radios mx-auto">
-          <Form.Check
-            inline
-            data-testid="ingredient-search-radio"
-            label="Ingrediente"
-            name="group1"
-            type="radio"
-            value="Ingrediente"
-            onChange={ this.setSearchType }
-          />
-          <Form.Check
-            inline
-            data-testid="name-search-radio"
-            label="Nome"
-            name="group1"
-            type="radio"
-            value="Nome"
-            onChange={ this.setSearchType }
-          />
-          <Form.Check
-            inline
-            data-testid="first-letter-search-radio"
-            label="Primeira Letra"
-            name="group1"
-            type="radio"
-            value="Primeira Letra"
-            onChange={ this.setSearchType }
-          />
+          <label htmlFor="searchType">
+            Ingredient
+            <input
+              data-testid="ingredient-search-radio"
+              label="Ingredient"
+              id="searchType"
+              name="group1"
+              type="radio"
+              value="Ingredient"
+              onChange={ handleChange }
+            />
+          </label>
+          <label htmlFor="searchType">
+            Name
+            <input
+              data-testid="name-search-radio"
+              label="Name"
+              id="searchType"
+              name="group1"
+              type="radio"
+              value="Name"
+              onChange={ handleChange }
+            />
+          </label>
+          <label htmlFor="searchType">
+            First letter
+            <input
+              data-testid="first-letter-search-radio"
+              label="First letter"
+              id="searchType"
+              name="group1"
+              type="radio"
+              value="First letter"
+              onChange={ handleChange }
+            />
+          </label>
         </div>
         <Button
           type="submit"
@@ -99,11 +109,28 @@ class SearchBar extends Component {
         >
           Buscar
         </Button>
-      </Form>
-    );
-  }
+      </form>
+      <div className="recipesContent">
+        {recipes.map((el, i) => {
+          if (i < TWELVE && location.pathname === '/meals') {
+            return (<MealCard
+              index={ i }
+              key={ i + el }
+              recipe={ el }
+            />);
+          } if (i < TWELVE && location.pathname === '/drinks') {
+            return (<DrinkCard
+              index={ i }
+              key={ i + el }
+              recipe={ el }
+            />);
+          }
+          return null;
+        })}
+      </div>
+    </div>
+  );
 }
 
 SearchBar.propTypes = {}.isRequired;
-
-export default connect()(SearchBar);
+export default SearchBar;

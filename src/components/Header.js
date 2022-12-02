@@ -1,16 +1,15 @@
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
-import PageIcon from './PageIcon';
 import IconProfile from '../images/profileIcon.svg';
 import IconSearch from '../images/searchIcon.svg';
+import PageIcon from './PageIcon';
+import SearchBar from './SearchBar';
 
 function Header(props) {
   const { search, title } = props;
-
   const [searchOpen, setSearchOpen] = useState(false);
-
   return (
     <header>
       <nav>
@@ -42,17 +41,7 @@ function Header(props) {
         <span data-testid="page-title">{ title }</span>
       </div>
       {
-        searchOpen && (
-          <div>
-            <label htmlFor="search-header">
-              <input
-                type="search"
-                id="search-header"
-                data-testid="search-input"
-              />
-            </label>
-          </div>
-        )
+        searchOpen && (<SearchBar />)
       }
     </header>
   );
@@ -60,8 +49,9 @@ function Header(props) {
 
 Header.propTypes = {
   search: PropTypes.bool,
-  title: PropTypes.string.isRequired,
-};
+  title: PropTypes.string,
+  path: PropTypes.string,
+}.isRequired;
 
 Header.defaultProps = {
   search: false,
