@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+import useRecipes from '../hooks/useRecipes';
 import useRecipe from '../hooks/useRecipe';
 import useBasePath from '../hooks/useBasePath';
 
@@ -9,8 +10,9 @@ function RecipeDetails() {
   const { id } = useParams();
 
   const { data: recipe, loading } = useRecipe(basePath, id);
+  const { data: recipes } = useRecipes(basePath === 'meals' ? 'drinks' : 'meals');
 
-  console.log(recipe);
+  console.log(recipes);
 
   if (loading) return 'Loading...';
 
