@@ -8,23 +8,52 @@ const endpoint = (type, id) => {
 };
 
 const mapToSameAPI = (type, data) => {
+  const SIZE_INGREDIENTS = 15;
+
+  const ingredients = [];
+
+  for (let i = 1; i <= SIZE_INGREDIENTS; i += 1) {
+    const newIngredient = {};
+
+    const hasIngredient = data[`strIngredient${i}`];
+    if (hasIngredient) newIngredient.ingredient = hasIngredient;
+    else break;
+
+    const hasMeasure = data[`strMeasure${i}`];
+    if (hasMeasure) newIngredient.measure = hasMeasure;
+
+    if (Object.keys(newIngredient).length > 0) ingredients.push(newIngredient);
+  }
+
   if (type === 'meals') {
+    const url = new URL(data.strYoutube);
+
+    const video = `${url.origin}/embed/${url.searchParams.get('v')}`;
+
     return {
       id: data.idMeal,
-      thumb: data.strMealThumb,
-      name: data.strMeal,
+      photo: data.strMealThumb,
+      title: data.strMeal,
+      category: data.strCategory,
+      ingredients,
+      instructions: data.strInstructions,
+      video,
     };
   }
 
   return {
     id: data.idDrink,
-    thumb: data.strDrinkThumb,
-    name: data.strDrink,
+    photo: data.strDrinkThumb,
+    title: data.strDrink,
+    category: data.strCategory,
+    alcoholic: data.strAlcoholic,
+    ingredients,
+    instructions: data.strInstructions,
   };
 };
 
 const useRecipe = (type, id) => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({});
   const [error, setError] = useState();
   const [loading, setLoading] = useState(true);
 
