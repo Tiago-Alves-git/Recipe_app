@@ -81,14 +81,14 @@ describe('', () => {
   });
 });
 
-// describe('', () => {
-//   it('', async () => {
-//     renderWithRouterAndRedux(<SearchBar />, { initialEntries: ['/meals'] });
-//     const searchInput = await screen.findByTestId('search-input');
-//     userEvent.type(searchInput, 'potato');
-//     const inputRadious = await screen.findByTestId('ingredient-search-radio');
-//     userEvent.click(inputRadious);
-//     const button = await screen.findByTestId('exec-search-btn');
-//     userEvent.click(button);
-//   });
-// });
+describe('', () => {
+  // it('', async () => {
+  //   renderWithRouterAndRedux(<SearchBar />, { initialEntries: ['/meals'] });
+  //   const searchInput = await screen.findByTestId('search-input');
+  //   userEvent.type(searchInput, 'potato');
+  //   const inputRadious = await screen.findByTestId('ingredient-search-radio');
+  //   userEvent.click(inputRadious);
+  //   const button = await screen.findByTestId('exec-search-btn');
+  //   userEvent.click(button);
+  // });
+});
