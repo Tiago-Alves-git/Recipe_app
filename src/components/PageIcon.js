@@ -14,11 +14,16 @@ function PageIcon(props) {
     if (lowerCaseTitle === 'meals') return IconMeal;
     if (lowerCaseTitle === 'drinks') return IconDrink;
     if (lowerCaseTitle === 'profile') return IconProfile;
-    if (lowerCaseTitle === 'favorites') return IconBlackHeart;
-    return '';
+    if (lowerCaseTitle === 'favorite recipes') return IconBlackHeart;
+    return false;
   };
 
-  return <img src={ getIcon() } alt={ title } width={ size } height={ size } />;
+  const icon = getIcon();
+
+  return (
+    icon
+      && <img src={ icon } alt={ title } width={ size } height={ size } />
+  );
 }
 
 PageIcon.propTypes = {
