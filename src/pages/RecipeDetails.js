@@ -14,6 +14,9 @@ function RecipeDetails() {
   const { data: recipe, loading } = useRecipe(basePath, id);
   const { data: recipes } = useRecipes(basePath === 'meals' ? 'drinks' : 'meals');
 
+  const doneRecipesStorage = localStorage.getItem('doneRecipes');
+  const doneRecipes = doneRecipesStorage ? JSON.parse(doneRecipesStorage) : [];
+
   console.log(recipes);
 
   if (loading) return 'Loading...';
@@ -62,7 +65,10 @@ function RecipeDetails() {
           />
         )
       }
-      <ButtonStartRecipe />
+      {
+        doneRecipes.some((doneRecipe) => doneRecipe.id === recipe.id)
+          || <ButtonStartRecipe />
+      }
     </>
   );
 }
