@@ -3,15 +3,15 @@ body {
   display: flex;
   text-align: center;
   flex-direction: column;
-  font-family: 'Quicksand';
-  height: 100vh;
+  font-family: 'Quicksand';  
   justify-content: center;
-  overflow-y: scroll;
-  width: 360px;
-  height: 640px;
+  width: 100%;
+  height: 100%;  
+  max-width: 360px;
+  max-width: 640px;
   background-color: tomato;
 }
-.recipeCard img{
+img{
   width: 50px;
   height: 50px;
 }

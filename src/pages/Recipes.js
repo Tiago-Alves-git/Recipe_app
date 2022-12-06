@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import useRecipes from '../hooks/useRecipes';
 import useCategories from '../hooks/useCategories';
 
@@ -14,6 +15,7 @@ function Recipes() {
   } = useCategories(pathname);
 
   const { data: recipes } = useRecipes(pathname, selectedCategory);
+  const isToogle = useSelector((state) => state.recipesReducer.isToogle);
 
   return (
     <>
@@ -40,25 +42,23 @@ function Recipes() {
       >
         All
       </button>
-      {
-        recipes.map((recipe, i) => (
-          <div
-            key={ recipe.id }
-            data-testid={ `${i}-recipe-card` }
+      { !isToogle && recipes.map((recipe, i) => (
+        <div
+          key={ recipe.id }
+          data-testid={ `${i}-recipe-card` }
+        >
+          <Link
+            to={ `/${pathname.slice(1)}/${recipe.id}` }
           >
-            <Link
-              to={ `/${pathname.slice(1)}/${recipe.id}` }
-            >
-              <img
-                data-testid={ `${i}-card-img` }
-                src={ recipe.thumb }
-                alt={ recipe.name }
-              />
-            </Link>
-            <span data-testid={ `${i}-card-name` }>{ recipe.name }</span>
-          </div>
-        ))
-      }
+            <img
+              data-testid={ `${i}-card-img` }
+              src={ recipe.thumb }
+              alt={ recipe.name }
+            />
+          </Link>
+          <span data-testid={ `${i}-card-name` }>{ recipe.name }</span>
+        </div>
+      ))}
       <Footer />
     </>
   );
