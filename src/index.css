@@ -11,7 +11,11 @@ body {
   max-width: 640px;
   background-color: tomato;
 }
-img{
+.img{
+  width: 50px;
+  height: 50px;
+}
+.recipeCard img{
   width: 50px;
   height: 50px;
 }
