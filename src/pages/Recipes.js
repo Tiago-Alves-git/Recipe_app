@@ -47,23 +47,33 @@ function Recipes() {
           All
         </button>
       </div>
-      { !isToogle && recipes.map((recipe, i) => (
-        <div
-          key={ recipe.id }
-          data-testid={ `${i}-recipe-card` }
-        >
-          <Link
-            to={ `/${basePath}/${recipe.id}` }
+      <div className="cards">
+        { !isToogle && recipes.map((recipe, i) => (
+          <div
+            className="card"
+            key={ recipe.id }
+            data-testid={ `${i}-recipe-card` }
           >
-            <img
-              data-testid={ `${i}-card-img` }
-              src={ recipe.thumb }
-              alt={ recipe.name }
-            />
-          </Link>
-          <span data-testid={ `${i}-card-name` }>{ recipe.name }</span>
-        </div>
-      ))}
+            <Link
+              to={ `/${basePath}/${recipe.id}` }
+            >
+              <img
+                className="card-img-top"
+                data-testid={ `${i}-card-img` }
+                src={ recipe.thumb }
+                alt={ recipe.name }
+              />
+            </Link>
+
+            <div className="card-body">
+              <span data-testid={ `${i}-card-name` } className="card-title">
+                { recipe.name }
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+
       <Footer />
     </>
   );
