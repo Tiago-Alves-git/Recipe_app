@@ -5,6 +5,8 @@ import useBasePath from '../hooks/useBasePath';
 
 import ButtonStartRecipe from '../components/ButtonStartRecipe';
 
+import './RecipeDetails.css';
+
 function RecipeDetails() {
   const basePath = useBasePath();
   const { id } = useParams();
@@ -18,18 +20,24 @@ function RecipeDetails() {
 
   return (
     <>
-      <div>RecipeDetails</div>
-      <img
-        data-testid="recipe-photo"
-        src={ recipe.photo }
-        alt={ recipe.title }
-      />
-      <span data-testid="recipe-title">
-        { recipe.title }
-      </span>
-      <span data-testid="recipe-category">
-        { basePath === 'meals' ? recipe.category : recipe.alcoholic }
-      </span>
+      <div className="card">
+        <img
+          className="card-img"
+          data-testid="recipe-photo"
+          src={ recipe.photo }
+          alt={ recipe.title }
+        />
+
+        <div className="card-img-overlay">
+          <div>
+            <p data-testid="recipe-category">
+              { basePath === 'meals' ? recipe.category : recipe.alcoholic }
+            </p>
+          </div>
+          <h5 className="card-title" data-testid="recipe-title">{ recipe.title }</h5>
+        </div>
+      </div>
+
       <ul>
         {
           recipe.ingredients.map(({ ingredient, measure }, i) => (
