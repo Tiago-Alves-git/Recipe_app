@@ -10,7 +10,9 @@ function FavoriteRecipes() {
   const [favoriteRecipes, setfavoriteRecipes] = useState([]);
   const [copied, setCopied] = useState(false);
 
-  const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const recipesStorage = localStorage.getItem('favoriteRecipes');
+
+  const recipes = recipesStorage ? JSON.parse(recipesStorage) : [];
 
   useEffect(() => {
     const recipesInit = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -51,7 +53,7 @@ function FavoriteRecipes() {
 
   return (
     <div>
-      <Header title="Done Recipes" />
+      <Header title="Favorite Recipes" />
       <button
         type="button"
         data-testid="filter-by-meal-btn"
