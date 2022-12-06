@@ -85,6 +85,7 @@ function FavoriteRecipes() {
         favoriteRecipes.map((recipe, i) => (
           <div
             key={ recipe.id }
+            className="card"
           >
             <button
               type="button"
@@ -93,8 +94,8 @@ function FavoriteRecipes() {
               onClick={ () => { shareRecipe(recipe.id, recipe.type); } }
             >
               <img src={ shareIcon } alt="compartilhar" />
-
             </button>
+
             <button
               type="button"
               data-testid={ `${i}-horizontal-favorite-btn` }
@@ -102,14 +103,14 @@ function FavoriteRecipes() {
               onClick={ () => { desfavoritar(recipe.id); } }
             >
               <img src={ blackHeartIcon } alt="desfavoritar" />
-
             </button>
+
             <Link
               to={ `/${recipe.type}s/${recipe.id}` }
             >
               <img
                 data-testid={ `${i}-horizontal-image` }
-                className="img"
+                className="card-img"
                 src={ recipe.image }
                 alt={ recipe.name }
               />
