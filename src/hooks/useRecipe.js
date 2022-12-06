@@ -31,6 +31,7 @@ const mapToSameAPI = (type, data) => {
     const video = `${url.origin}/embed/${url.searchParams.get('v')}`;
 
     return {
+      type,
       id: data.idMeal,
       photo: data.strMealThumb,
       title: data.strMeal,
@@ -42,6 +43,7 @@ const mapToSameAPI = (type, data) => {
   }
 
   return {
+    type,
     id: data.idDrink,
     photo: data.strDrinkThumb,
     title: data.strDrink,

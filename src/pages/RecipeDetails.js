@@ -3,7 +3,7 @@ import useRecipes from '../hooks/useRecipes';
 import useRecipe from '../hooks/useRecipe';
 import useBasePath from '../hooks/useBasePath';
 
-import ButtonStartRecipe from '../components/ButtonStartRecipe';
+import ButtonRecipeStatus from '../components/ButtonRecipeStatus';
 
 import './RecipeDetails.css';
 
@@ -13,9 +13,6 @@ function RecipeDetails() {
 
   const { data: recipe, loading } = useRecipe(basePath, id);
   const { data: recipes } = useRecipes(basePath === 'meals' ? 'drinks' : 'meals');
-
-  const doneRecipesStorage = localStorage.getItem('doneRecipes');
-  const doneRecipes = doneRecipesStorage ? JSON.parse(doneRecipesStorage) : [];
 
   console.log(recipes);
 
@@ -65,10 +62,7 @@ function RecipeDetails() {
           />
         )
       }
-      {
-        doneRecipes.some((doneRecipe) => doneRecipe.id === recipe.id)
-          || <ButtonStartRecipe />
-      }
+      <ButtonRecipeStatus type={ recipe.type } id={ recipe.id } />
     </>
   );
 }
