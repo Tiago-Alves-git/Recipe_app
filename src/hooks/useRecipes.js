@@ -29,8 +29,6 @@ const mapToSameAPI = (type) => (data) => {
 };
 
 const useRecipes = (type, filter) => {
-  type = type.slice(1);
-
   const [data, setData] = useState([]);
   const [error, setError] = useState();
   const [loading, setLoading] = useState(true);
