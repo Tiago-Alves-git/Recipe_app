@@ -1,15 +1,24 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import IconProfile from '../images/profileIcon.svg';
 import IconSearch from '../images/searchIcon.svg';
+import { actionSearch } from '../redux/actions';
 import PageIcon from './PageIcon';
 import SearchBar from './SearchBar';
 
 function Header(props) {
-  const { search, title } = props;
+  const { title, search } = props;
   const [searchOpen, setSearchOpen] = useState(false);
+  const dispatch = useDispatch();
+
+  function handleClick() {
+    setSearchOpen((prev) => !prev);
+    dispatch(actionSearch(!searchOpen));
+  }
+
   return (
     <header>
       <nav>
@@ -22,7 +31,7 @@ function Header(props) {
             && (
               <button
                 type="button"
-                onClick={ () => setSearchOpen((prev) => !prev) }
+                onClick={ handleClick }
               >
                 <img
                   src={ IconSearch }
@@ -48,7 +57,6 @@ function Header(props) {
 }
 
 Header.propTypes = {
-  search: PropTypes.bool,
   title: PropTypes.string,
   path: PropTypes.string,
 }.isRequired;
