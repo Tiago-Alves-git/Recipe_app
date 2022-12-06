@@ -53,8 +53,8 @@ function RecipeDetails() {
         recipe.video && (
           <iframe
             title={ recipe.title }
-            width="560"
-            height="315"
+            width="340"
+            height="191"
             src={ `${recipe.video}&autoplay=0` }
             frameBorder="0"
             allowFullScreen
