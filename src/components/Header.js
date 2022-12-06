@@ -9,6 +9,8 @@ import { actionSearch } from '../redux/actions';
 import PageIcon from './PageIcon';
 import SearchBar from './SearchBar';
 
+import './Header.css';
+
 function Header(props) {
   const { title, search } = props;
   const [searchOpen, setSearchOpen] = useState(false);
@@ -21,31 +23,34 @@ function Header(props) {
 
   return (
     <header>
-      <nav>
+      <nav className="header-nav">
         <span>
-          recipes
-          <b>app</b>
+          Recipes
+          <b>APP</b>
         </span>
-        {
-          search
-            && (
-              <button
-                type="button"
-                onClick={ handleClick }
-              >
-                <img
-                  src={ IconSearch }
-                  data-testid="search-top-btn"
-                  alt="search"
-                />
-              </button>
-            )
-        }
-        <Link to="/profile">
-          <img src={ IconProfile } alt="profile" data-testid="profile-top-btn" />
-        </Link>
+        <div className="header-nav--items">
+          {
+            search
+              && (
+                <button
+                  type="button"
+                  onClick={ handleClick }
+                >
+                  <img
+                    src={ IconSearch }
+                    data-testid="search-top-btn"
+                    alt="search"
+                  />
+                </button>
+              )
+          }
+          <Link to="/profile">
+            <img src={ IconProfile } alt="profile" data-testid="profile-top-btn" />
+          </Link>
+        </div>
       </nav>
-      <div>
+
+      <div className="header-title--wrapper">
         <PageIcon title={ title } />
         <span data-testid="page-title">{ title }</span>
       </div>

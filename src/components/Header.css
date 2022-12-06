@@ -1,0 +1,33 @@
+.header-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.header-nav span {
+  flex: 1;
+  margin-left: 15px;
+}
+
+.header-nav .header-nav--items {
+  margin-right: 15px;
+}
+
+.header-nav .header-nav--items button {
+  background-color: transparent;
+  border: none;
+  margin-right: 10px;
+}
+
+.header-title--wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header-title--wrapper span {
+  font-size: 2rem;
+  text-transform: uppercase;
+  font-weight: 600;
+}

@@ -6,7 +6,7 @@ import IconBlackHeart from '../images/blackHeartIcon.svg';
 import IconProfile from '../images/profileIcon.svg';
 
 function PageIcon(props) {
-  const { title } = props;
+  const { title, size } = props;
 
   const getIcon = () => {
     const lowerCaseTitle = title.toLowerCase();
@@ -18,11 +18,16 @@ function PageIcon(props) {
     return '';
   };
 
-  return <img src={ getIcon() } alt={ title } />;
+  return <img src={ getIcon() } alt={ title } width={ size } height={ size } />;
 }
 
 PageIcon.propTypes = {
   title: PropTypes.string.isRequired,
+  size: PropTypes.number,
+};
+
+PageIcon.defaultProps = {
+  size: 45,
 };
 
 export default PageIcon;

@@ -7,6 +7,8 @@ import useBasePath from '../hooks/useBasePath';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
+import './Recipes.css';
+
 function Recipes() {
   const basePath = useBasePath();
   const {
@@ -21,28 +23,30 @@ function Recipes() {
   return (
     <>
       <Header search title={ basePath === 'meals' ? 'Meals' : 'Drinks' } />
-      {
-        categories.map((category) => (
-          <button
-            type="button"
-            key={ category.strCategory }
-            data-testid={ `${category.strCategory}-category-filter` }
-            className={
-              `${selectedCategory === category.strCategory ? 'selected' : ''}`
-            }
-            onClick={ () => toggleSelectedCategory(category.strCategory) }
-          >
-            { category.strCategory }
-          </button>
-        ))
-      }
-      <button
-        type="button"
-        data-testid="All-category-filter"
-        onClick={ () => toggleSelectedCategory() }
-      >
-        All
-      </button>
+      <div className="category-button--list">
+        {
+          categories.map((category) => (
+            <button
+              type="button"
+              key={ category.strCategory }
+              data-testid={ `${category.strCategory}-category-filter` }
+              className={
+                `${selectedCategory === category.strCategory ? 'selected' : ''}`
+              }
+              onClick={ () => toggleSelectedCategory(category.strCategory) }
+            >
+              { category.strCategory }
+            </button>
+          ))
+        }
+        <button
+          type="button"
+          data-testid="All-category-filter"
+          onClick={ () => toggleSelectedCategory() }
+        >
+          All
+        </button>
+      </div>
       { !isToogle && recipes.map((recipe, i) => (
         <div
           key={ recipe.id }
