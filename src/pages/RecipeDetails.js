@@ -19,10 +19,14 @@ function RecipeDetails(props) {
   console.log(recipes);
 
   const handleCopy = async () => {
+    const THREESECONDS = 3000;
     const { location } = props;
     const { pathname } = location;
     document.getElementById('copyMessage').style.display = 'inline';
-    return copy(`http://localhost:3000${pathname}`);
+    setTimeout(() => {
+      document.getElementById('copyMessage').style.display = 'none';
+    }, THREESECONDS);
+    copy(`http://localhost:3000${pathname}`);
   };
 
   if (loading) return 'Loading...';
