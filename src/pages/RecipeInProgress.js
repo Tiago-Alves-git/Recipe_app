@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import ButtonRecipeStatus from '../components/ButtonRecipeStatus';
 import HeaderDetails from '../components/HeaderDetails';
 import Recommendations from '../components/Recommendations';
 import useBasePath from '../hooks/useBasePath';
@@ -13,20 +12,21 @@ import { getMealsForRecommendation } from '../helpers/foodApi';
 
 const copy = require('clipboard-copy');
 
-function RecipeDetails(props) {
+function RecipeInProgress(props) {
   const basePath = useBasePath();
   const { id } = useParams();
-  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
 
   const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
   const isFavorite = favorites.length > 0
     && favorites.find((favorite) => favorite.id === id);
 
   const toggleFavorite = (favorite) => {
+    const lastIndex = -1;
+
     if (!isFavorite) {
       favorites.push({
         id: favorite.id,
-        type: favorite.type,
+        type: favorite.type.slice(0, lastIndex),
         nationality: favorite.nationality
           ? favorite.nationality : '',
         category: favorite.category,
@@ -109,7 +109,7 @@ function RecipeDetails(props) {
       </div>
 
       <ul>
-        {recipe.ingredients.map(({ ingredient, measure }, i) => (
+        {recipe.ingredients && recipe.ingredients.map(({ ingredient, measure }, i) => (
           <li key={ ingredient } data-testid={ `${i}-ingredient-name-and-measure` }>
             <span>{ingredient}</span>
             {' - '}
@@ -129,19 +129,22 @@ function RecipeDetails(props) {
         />
       )}
       <Recommendations recommendations={ recommendations } />
-      {doneRecipes.some((e) => Number(e.id) === Number(id)) ? (
-        ''
-      ) : (
-        <ButtonRecipeStatus type={ recipe.type } id={ recipe.id } />
-      )}
+
+      <button
+        data-testid="finish-recipe-btn"
+        type="button"
+        className="button-start--recipe"
+      >
+        Finish Recipe
+      </button>
     </>
   );
 }
 
-RecipeDetails.propTypes = {
+RecipeInProgress.propTypes = {
   location: PropTypes.shape({
     pathname: PropTypes.string,
   }),
 }.isRequired;
 
-export default RecipeDetails;
+export default RecipeInProgress;

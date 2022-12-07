@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 
 const endpoint = (type, id) => {
   let url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
-  if (type === 'meals') url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+  if (type.startsWith('meals')) url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
 
   return url;
 };
@@ -25,13 +25,13 @@ const mapToSameAPI = (type, data) => {
     if (Object.keys(newIngredient).length > 0) ingredients.push(newIngredient);
   }
 
-  if (type === 'meals') {
+  if (type.startsWith('meals')) {
     const url = new URL(data.strYoutube);
 
     const video = `${url.origin}/embed/${url.searchParams.get('v')}`;
 
     return {
-      type,
+      type: 'meal',
       id: data.idMeal,
       photo: data.strMealThumb,
       nationality: data.strArea,
@@ -44,7 +44,7 @@ const mapToSameAPI = (type, data) => {
   }
 
   return {
-    type,
+    type: 'drink',
     id: data.idDrink,
     photo: data.strDrinkThumb,
     nationality: data.strArea,
@@ -66,7 +66,9 @@ const useRecipe = (type, id) => {
       setLoading(true);
       if (!id) throw Exception('recipe needs an id!');
       const res = await (await fetch(endpoint(type, id))).json();
-      setData(mapToSameAPI(type, res[type][0]));
+      setData(mapToSameAPI(type, res[
+        type.startsWith('meals') ? 'meals' : 'drinks'
+      ][0]));
     } catch (e) {
       setError(e.message);
     } finally {
