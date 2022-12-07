@@ -1,12 +1,12 @@
 .button-start--recipe {
-  padding: 10px 0;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  color: white;
-  width: 100%;
   background-color: dimgrey;
   border: none;
+  bottom: 0;
+  color: white;
+  left: 0;
+  padding: 10px 0;
+  position: fixed;
+  width: 100%;
 }
 
 .button-start--recipe:hover {
