@@ -12,6 +12,7 @@ const copy = require('clipboard-copy');
 function RecipeDetails(props) {
   const basePath = useBasePath();
   const { id } = useParams();
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
 
   const { data: recipe, loading } = useRecipe(basePath, id);
   const { data: recipes } = useRecipes(basePath === 'meals' ? 'drinks' : 'meals');
@@ -83,7 +84,9 @@ function RecipeDetails(props) {
           />
         )
       }
-      <ButtonRecipeStatus type={ recipe.type } id={ recipe.id } />
+      { doneRecipes.some((e) => Number(e.id) === Number(id)) ? '' : (
+        <ButtonRecipeStatus type={ recipe.type } id={ recipe.id } />
+      ) }
     </>
   );
 }
