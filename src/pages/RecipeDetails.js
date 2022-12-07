@@ -1,13 +1,15 @@
+import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import useRecipes from '../hooks/useRecipes';
 import useRecipe from '../hooks/useRecipe';
 import useBasePath from '../hooks/useBasePath';
-
+import shareIcon from '../images/shareIcon.svg';
 import ButtonRecipeStatus from '../components/ButtonRecipeStatus';
-
 import './RecipeDetails.css';
 
-function RecipeDetails() {
+const copy = require('clipboard-copy');
+
+function RecipeDetails(props) {
   const basePath = useBasePath();
   const { id } = useParams();
 
@@ -15,6 +17,13 @@ function RecipeDetails() {
   const { data: recipes } = useRecipes(basePath === 'meals' ? 'drinks' : 'meals');
 
   console.log(recipes);
+
+  const handleCopy = async () => {
+    const { location } = props;
+    const { pathname } = location;
+    document.getElementById('copyMessage').style.display = 'inline';
+    return copy(`http://localhost:3000${pathname}`);
+  };
 
   if (loading) return 'Loading...';
 
@@ -37,9 +46,12 @@ function RecipeDetails() {
           <h5 className="card-title" data-testid="recipe-title">{ recipe.title }</h5>
         </div>
       </div>
-      <div className="favBox">
+      <div className="favBox-container">
         <button type="button" data-testid="favorite-btn"> Favorite </button>
-        <button type="button" data-testid="share-btn"> Share </button>
+        <button type="button" data-testid="share-btn" onClick={ handleCopy }>
+          <img src={ shareIcon } alt="Compartilhar" />
+        </button>
+        <span className="copyMessage" id="copyMessage">Link copied!</span>
       </div>
 
       <ul>
@@ -71,5 +83,11 @@ function RecipeDetails() {
     </>
   );
 }
+
+RecipeDetails.propTypes = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+  }),
+}.isRequired;
 
 export default RecipeDetails;

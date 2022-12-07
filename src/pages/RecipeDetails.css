@@ -2,3 +2,19 @@
   margin-top: 250px;
   text-align: center;
 }
+
+.copyMessage {
+  background-color: #000000df;
+  border-radius: 4px;
+  color: white;
+  display: none;
+  margin-left: 40px;
+  padding: 5px 12px;
+}
+
+.favBox-container {
+  align-items: center;
+  display: flex;
+  margin-top: 16px;
+  min-height: 30px;
+}
