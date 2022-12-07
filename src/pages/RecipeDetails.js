@@ -18,6 +18,32 @@ function RecipeDetails(props) {
   const { id } = useParams();
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
 
+  const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+  const isFavorite = favorites.length > 0
+    && favorites.find((favorite) => favorite.id === id);
+
+  const toggleFavorite = (favorite) => {
+    const lastIndex = -1;
+
+    if (!isFavorite) {
+      favorites.push({
+        id: favorite.id,
+        type: favorite.type.slice(0, lastIndex),
+        nationality: favorite.nationality
+          ? favorite.nationality : '',
+        category: favorite.category,
+        alcoholicOrNot: favorite.alcoholic
+          ? favorite.alcoholic : '',
+        name: favorite.title,
+        image: favorite.photo,
+      });
+      localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
+    } else {
+      const filter = favorites.filter((e) => e.id !== id);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(filter));
+    }
+  };
+
   const [recommendations, setRecommendations] = useState([]);
   const { data: recipe, loading } = useRecipe(basePath, id);
 
@@ -68,11 +94,14 @@ function RecipeDetails(props) {
         </div>
       </div>
       <div className="favBox-container">
-        <button type="button" data-testid="favorite-btn">
-          {' '}
+        <button
+          type="button"
+          data-testid="favorite-btn"
+          onClick={ () => toggleFavorite(recipe) }
+        >
           Favorite
-          {' '}
         </button>
+
         <button type="button" data-testid="share-btn" onClick={ handleCopy }>
           <img src={ shareIcon } alt="Compartilhar" />
         </button>
