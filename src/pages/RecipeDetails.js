@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ButtonRecipeStatus from '../components/ButtonRecipeStatus';
 import HeaderDetails from '../components/HeaderDetails';
@@ -27,15 +27,16 @@ function RecipeDetails(props) {
 
   console.log(recipes);
 
-  async function getRecomentadion() {
+  const getRecomentadion = useCallback(async () => {
     const data = basePath === 'meals'
       ? await getDrinksForRecommendation()
       : await getMealsForRecommendation();
     setRecommendations(data);
-  }
+  }, [basePath]);
+
   useEffect(() => {
     getRecomentadion();
-  }, []);
+  }, [getRecomentadion]);
 
   const handleCopy = async () => {
     const THREESECONDS = 3000;
