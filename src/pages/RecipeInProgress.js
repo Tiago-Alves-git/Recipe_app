@@ -44,6 +44,17 @@ function RecipeInProgress(props) {
 
   const [recommendations, setRecommendations] = useState([]);
   const { data: recipe, loading } = useRecipe(basePath, id);
+  const [checkedIngredients, setCheckedIngredients] = useState([]);
+
+  const toggleCheckedIngredient = (ingredient) => {
+    const found = checkedIngredients.find((ing) => ing === ingredient);
+
+    if (found) {
+      setCheckedIngredients(checkedIngredients.filter((ing) => ing !== found));
+    } else {
+      setCheckedIngredients([...checkedIngredients, ingredient]);
+    }
+  };
 
   const getRecomentadion = useCallback(async () => {
     const data = basePath === 'meals'
@@ -114,14 +125,21 @@ function RecipeInProgress(props) {
             <label
               htmlFor={ `${i}-ingredient-step` }
               data-testid={ `${i}-ingredient-step` }
+              style={ {
+                color: 'black',
+                textDecoration: checkedIngredients.find((ing) => ing === ingredient)
+                  ? 'line-through' : 'none',
+              } }
+
             >
-              <span>{ingredient}</span>
-              {' - '}
-              <span>{measure}</span>
+              <span>
+                { `${ingredient} - ${measure}` }
+              </span>
 
               <input
                 type="checkbox"
                 id={ `${i}-ingredient-step` }
+                onChange={ () => toggleCheckedIngredient(ingredient) }
               />
             </label>
           </li>
