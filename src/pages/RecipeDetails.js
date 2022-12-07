@@ -6,6 +6,7 @@ import useBasePath from '../hooks/useBasePath';
 import shareIcon from '../images/shareIcon.svg';
 import ButtonRecipeStatus from '../components/ButtonRecipeStatus';
 import './RecipeDetails.css';
+import HeaderDetails from '../components/HeaderDetails';
 
 const copy = require('clipboard-copy');
 
@@ -34,6 +35,7 @@ function RecipeDetails(props) {
 
   return (
     <>
+      <HeaderDetails />
       <div className="card">
         <img
           className="card-img"
