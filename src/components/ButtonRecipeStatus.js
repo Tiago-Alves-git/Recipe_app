@@ -1,9 +1,12 @@
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 
 import './ButtonRecipeStatus.css';
 
 function ButtonRecipeStatus(props) {
   const { id, type } = props;
+
+  const history = useHistory();
 
   const doneRecipesStorage = localStorage.getItem('doneRecipes');
   const doneRecipes = doneRecipesStorage ? JSON.parse(doneRecipesStorage) : [];
@@ -34,6 +37,7 @@ function ButtonRecipeStatus(props) {
       data-testid="start-recipe-btn"
       type="button"
       className="button-start--recipe"
+      onClick={ () => history.push(`/${type}/${id}/in-progress`) }
     >
       Start Recipe
     </button>

@@ -17,9 +17,11 @@ function App() {
 
       <Route exact path="/drinks" component={ Recipes } />
       <Route path="/drinks/:id" component={ RecipeDetails } />
+      <Route path="/drinks/:id/:in-progress?" component={ RecipeDetails } />
 
       <Route exact path="/meals" component={ Recipes } />
       <Route path="/meals/:id" component={ RecipeDetails } />
+      <Route path="/drinks/:id/:in-progress?" component={ RecipeDetails } />
 
       <Route exact path="/done-recipes" component={ DoneRecipes } />
       <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
