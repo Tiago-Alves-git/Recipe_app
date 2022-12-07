@@ -111,9 +111,19 @@ function RecipeInProgress(props) {
       <ul>
         {recipe.ingredients && recipe.ingredients.map(({ ingredient, measure }, i) => (
           <li key={ ingredient } data-testid={ `${i}-ingredient-name-and-measure` }>
-            <span>{ingredient}</span>
-            {' - '}
-            <span>{measure}</span>
+            <label
+              htmlFor={ `${i}-ingredient-step` }
+              data-testid={ `${i}-ingredient-step` }
+            >
+              <span>{ingredient}</span>
+              {' - '}
+              <span>{measure}</span>
+
+              <input
+                type="checkbox"
+                id={ `${i}-ingredient-step` }
+              />
+            </label>
           </li>
         ))}
       </ul>
