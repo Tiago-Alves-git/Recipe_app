@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Login from './pages/Login';
-import Profile from './pages/Profile';
-import Recipes from './pages/Recipes';
-import RecipeDetails from './pages/RecipeDetails';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
+import Login from './pages/Login';
+import Profile from './pages/Profile';
+import RecipeDetails from './pages/RecipeDetails';
+import Recipes from './pages/Recipes';
 
 import './App.css';
 
