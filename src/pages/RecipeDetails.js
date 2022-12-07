@@ -37,12 +37,17 @@ function RecipeDetails() {
           <h5 className="card-title" data-testid="recipe-title">{ recipe.title }</h5>
         </div>
       </div>
+      <div className="favBox">
+        <button type="button" data-testid="favorite-btn"> Favorite </button>
+        <button type="button" data-testid="share-btn"> Share </button>
+      </div>
 
       <ul>
         {
           recipe.ingredients.map(({ ingredient, measure }, i) => (
             <li key={ ingredient } data-testid={ `${i}-ingredient-name-and-measure` }>
               <span>{ ingredient }</span>
+              { ' - ' }
               <span>{ measure }</span>
             </li>
           ))
