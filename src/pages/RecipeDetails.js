@@ -6,7 +6,6 @@ import HeaderDetails from '../components/HeaderDetails';
 import Recommendations from '../components/Recommendations';
 import useBasePath from '../hooks/useBasePath';
 import useRecipe from '../hooks/useRecipe';
-import useRecipes from '../hooks/useRecipes';
 import shareIcon from '../images/shareIcon.svg';
 import './RecipeDetails.css';
 import { getDrinksForRecommendation } from '../helpers/drinkApi';
@@ -21,11 +20,6 @@ function RecipeDetails(props) {
 
   const [recommendations, setRecommendations] = useState([]);
   const { data: recipe, loading } = useRecipe(basePath, id);
-  const { data: recipes } = useRecipes(
-    basePath === 'meals' ? 'drinks' : 'meals',
-  );
-
-  console.log(recipes);
 
   const getRecomentadion = useCallback(async () => {
     const data = basePath === 'meals'
@@ -103,7 +97,6 @@ function RecipeDetails(props) {
           width="340"
           height="191"
           src={ `${recipe.video}&autoplay=0` }
-          frameBorder="0"
           allowFullScreen
           data-testid="video"
         />
