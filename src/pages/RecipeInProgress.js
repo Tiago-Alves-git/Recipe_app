@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useCallback, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import HeaderDetails from '../components/HeaderDetails';
 import Recommendations from '../components/Recommendations';
 import useBasePath from '../hooks/useBasePath';
@@ -13,6 +13,7 @@ import { getMealsForRecommendation } from '../helpers/foodApi';
 const copy = require('clipboard-copy');
 
 function RecipeInProgress(props) {
+  const history = useHistory();
   const basePath = useBasePath();
   const { id } = useParams();
 
@@ -30,6 +31,8 @@ function RecipeInProgress(props) {
         category: favorite.category,
         alcoholicOrNot: favorite.alcoholic
           ? favorite.alcoholic : '',
+        tags: favorite.tags
+          ? favorite.tags : '',
         name: favorite.title,
         image: favorite.photo,
       });
@@ -82,6 +85,27 @@ function RecipeInProgress(props) {
     copy(`http://localhost:3000${pathname}`);
   };
 
+  const finishRecipe = () => {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+    doneRecipes.push({
+      id: recipe.id,
+      type: recipe.type,
+      nationality: recipe.nationality
+        ? recipe.nationality : '',
+      category: recipe.category,
+      alcoholicOrNot: recipe.alcoholic
+        ? recipe.alcoholic : '',
+      tags: recipe.tags
+        ? recipe.tags : '',
+      name: recipe.title,
+      image: recipe.photo,
+      doneDate: new Date().toISOString(),
+    });
+
+    localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+    history.push('/done-recipes');
+  };
+
   if (loading) return 'Loading...';
 
   return (
@@ -131,7 +155,7 @@ function RecipeInProgress(props) {
               data-testid={ `${i}-ingredient-step` }
               style={ {
                 color: 'black',
-                textDecoration: checkedIngredients.find((ing) => ing === ingredient)
+                textDecoration: checkedIngredients.some((ing) => ing === ingredient)
                   ? 'line-through' : 'none',
               } }
 
@@ -143,7 +167,7 @@ function RecipeInProgress(props) {
               <input
                 type="checkbox"
                 id={ `${i}-ingredient-step` }
-                checked={ checkedIngredients.find((ing) => ing === ingredient) }
+                checked={ checkedIngredients.some((ing) => ing === ingredient) }
                 onChange={ () => toggleCheckedIngredient(ingredient) }
               />
             </label>
@@ -167,6 +191,8 @@ function RecipeInProgress(props) {
         data-testid="finish-recipe-btn"
         type="button"
         className="button-start--recipe"
+        disabled={ checkedIngredients.length !== recipe.ingredients.length }
+        onClick={ () => finishRecipe() }
       >
         Finish Recipe
       </button>

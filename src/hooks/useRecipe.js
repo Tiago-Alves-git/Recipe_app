@@ -38,6 +38,8 @@ const mapToSameAPI = (type, data) => {
       title: data.strMeal,
       category: data.strCategory,
       ingredients,
+      tags: data.strTags
+        ? data.strTags.split(',') : [],
       instructions: data.strInstructions,
       video,
     };
@@ -52,6 +54,8 @@ const mapToSameAPI = (type, data) => {
     category: data.strCategory,
     alcoholic: data.strAlcoholic,
     ingredients,
+    tags: data.strTags
+      ? data.strTags.split(',') : [],
     instructions: data.strInstructions,
   };
 };
