@@ -6,16 +6,19 @@ import Recommendations from '../components/Recommendations';
 import useBasePath from '../hooks/useBasePath';
 import useRecipe from '../hooks/useRecipe';
 import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import './RecipeDetails.css';
 import { getDrinksForRecommendation } from '../helpers/drinkApi';
 import { getMealsForRecommendation } from '../helpers/foodApi';
 
 const copy = require('clipboard-copy');
 
-function RecipeInProgress(props) {
+function RecipeInProgress() {
   const history = useHistory();
   const basePath = useBasePath();
   const { id } = useParams();
+  const [favoritesState, setFavorites] = useState([]);
 
   const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
   const isFavorite = favorites.length > 0
@@ -37,9 +40,26 @@ function RecipeInProgress(props) {
         image: favorite.photo,
       });
       localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
+      setFavorites([{
+        ...favoritesState,
+        id: favorite.id,
+        type: favorite.type,
+        nationality: favorite.nationality
+          ? favorite.nationality : '',
+        category: favorite.category,
+        alcoholicOrNot: favorite.alcoholic
+          ? favorite.alcoholic : '',
+        tags: favorite.tags
+          ? favorite.tags : '',
+        name: favorite.title,
+        image: favorite.photo,
+      }]);
     } else {
-      const filter = favorites.filter((e) => e.id !== id);
+      const filter = favorites.filter((e) => e.id !== String(id));
       localStorage.setItem('favoriteRecipes', JSON.stringify(filter));
+      setFavorites([{
+        ...favoritesState,
+      }]);
     }
   };
 
@@ -64,7 +84,7 @@ function RecipeInProgress(props) {
   };
 
   const getRecomentadion = useCallback(async () => {
-    const data = basePath === 'meals'
+    const data = basePath === 'meals/in-progress'
       ? await getDrinksForRecommendation()
       : await getMealsForRecommendation();
     setRecommendations(data);
@@ -76,13 +96,13 @@ function RecipeInProgress(props) {
 
   const handleCopy = async () => {
     const THREESECONDS = 3000;
-    const { location } = props;
-    const { pathname } = location;
+    // const { location } = props;
+    // const { pathname } = location;
     document.getElementById('copyMessage').style.display = 'inline';
     setTimeout(() => {
       document.getElementById('copyMessage').style.display = 'none';
     }, THREESECONDS);
-    copy(`http://localhost:3000${pathname}`);
+    copy(`http://localhost:3000/${recipe.type}s/${recipe.id}`);
   };
 
   const finishRecipe = () => {
@@ -134,9 +154,16 @@ function RecipeInProgress(props) {
         <button
           type="button"
           data-testid="favorite-btn"
+          src={ favorites.some((el) => el.id === recipe.id)
+            ? blackHeartIcon : whiteHeartIcon }
+          alt="BlackHeart"
           onClick={ () => toggleFavorite(recipe) }
         >
-          Favorite
+          <img
+            src={ favorites.some((el) => el.id === recipe.id)
+              ? blackHeartIcon : whiteHeartIcon }
+            alt="BlackHeart"
+          />
         </button>
 
         <button type="button" data-testid="share-btn" onClick={ handleCopy }>

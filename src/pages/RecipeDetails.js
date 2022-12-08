@@ -10,6 +10,8 @@ import shareIcon from '../images/shareIcon.svg';
 import './RecipeDetails.css';
 import { getDrinksForRecommendation } from '../helpers/drinkApi';
 import { getMealsForRecommendation } from '../helpers/foodApi';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 const copy = require('clipboard-copy');
 
@@ -17,6 +19,7 @@ function RecipeDetails(props) {
   const basePath = useBasePath();
   const { id } = useParams();
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+  const [favoritesState, setFavorites] = useState([]);
 
   const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
   const isFavorite = favorites.length > 0
@@ -32,13 +35,32 @@ function RecipeDetails(props) {
         category: favorite.category,
         alcoholicOrNot: favorite.alcoholic
           ? favorite.alcoholic : '',
+        tags: favorite.tags
+          ? favorite.tags : '',
         name: favorite.title,
         image: favorite.photo,
       });
       localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
+      setFavorites([{
+        ...favoritesState,
+        id: favorite.id,
+        type: favorite.type,
+        nationality: favorite.nationality
+          ? favorite.nationality : '',
+        category: favorite.category,
+        alcoholicOrNot: favorite.alcoholic
+          ? favorite.alcoholic : '',
+        tags: favorite.tags
+          ? favorite.tags : '',
+        name: favorite.title,
+        image: favorite.photo,
+      }]);
     } else {
-      const filter = favorites.filter((e) => e.id !== id);
+      const filter = favorites.filter((e) => e.id !== String(id));
       localStorage.setItem('favoriteRecipes', JSON.stringify(filter));
+      setFavorites([{
+        ...favoritesState,
+      }]);
     }
   };
 
@@ -95,9 +117,16 @@ function RecipeDetails(props) {
         <button
           type="button"
           data-testid="favorite-btn"
+          src={ favorites.some((el) => el.id === recipe.id)
+            ? blackHeartIcon : whiteHeartIcon }
+          alt="BlackHeart"
           onClick={ () => toggleFavorite(recipe) }
         >
-          Favorite
+          <img
+            src={ favorites.some((el) => el.id === recipe.id)
+              ? blackHeartIcon : whiteHeartIcon }
+            alt="BlackHeart"
+          />
         </button>
 
         <button type="button" data-testid="share-btn" onClick={ handleCopy }>
@@ -132,7 +161,7 @@ function RecipeDetails(props) {
       {doneRecipes.some((e) => Number(e.id) === Number(id)) ? (
         ''
       ) : (
-        <ButtonRecipeStatus type={ recipe.type } id={ recipe.id } />
+        <ButtonRecipeStatus type={ basePath } id={ recipe.id } />
       )}
     </>
   );
