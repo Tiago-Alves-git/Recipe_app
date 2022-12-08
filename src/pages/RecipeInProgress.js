@@ -21,12 +21,10 @@ function RecipeInProgress(props) {
     && favorites.find((favorite) => favorite.id === id);
 
   const toggleFavorite = (favorite) => {
-    const lastIndex = -1;
-
     if (!isFavorite) {
       favorites.push({
         id: favorite.id,
-        type: favorite.type.slice(0, lastIndex),
+        type: favorite.type,
         nationality: favorite.nationality
           ? favorite.nationality : '',
         category: favorite.category,
