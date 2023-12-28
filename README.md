@@ -47,7 +47,7 @@ Antes de começar, certifique-se de ter instalado:
    git clone https://github.com/seu-usuario/CookBook-App.git
 2. Navegue até o diretório do projeto:
    ```bash
-  cd CookBook-App
+   cd CookBook-App
 3. Instale as dependências:
   ```bash
   npm install
