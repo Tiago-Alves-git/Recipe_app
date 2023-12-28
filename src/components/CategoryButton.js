@@ -1,15 +1,17 @@
 import PropTypes from 'prop-types';
+import '../Style/ButtonCategory.css';
 
 function CategoryButton({ Categorys, toggleSelectedCategory, selectedCategory }) {
+  console.log(Categorys);
   return (
-    <div>
+    <div className="category-container">
       { Categorys.map((category) => (
         <button
           type="button"
           key={ category.strCategory }
           data-testid={ `${category.strCategory}-category-filter` }
           className={
-            `${selectedCategory === category.strCategory ? 'selected' : ''}`
+            `category-btn ${selectedCategory === category.strCategory ? 'selected' : ''}`
           }
           onClick={ () => toggleSelectedCategory(category.strCategory) }
         >
@@ -20,6 +22,7 @@ function CategoryButton({ Categorys, toggleSelectedCategory, selectedCategory })
         type="button"
         data-testid="All-category-filter"
         onClick={ () => toggleSelectedCategory() }
+        className="category-btn"
       >
         All
       </button>
@@ -28,11 +31,17 @@ function CategoryButton({ Categorys, toggleSelectedCategory, selectedCategory })
 }
 
 CategoryButton.propTypes = {
-  Categorys: PropTypes.shape({
-    map: PropTypes.func,
-  }).isRequired,
-  selectedCategory: PropTypes.string.isRequired,
+  Categorys: PropTypes.arrayOf(
+    PropTypes.shape({
+      strCategory: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
+  selectedCategory: PropTypes.string,
   toggleSelectedCategory: PropTypes.func.isRequired,
+};
+
+CategoryButton.defaultProps = {
+  selectedCategory: '',
 };
 
 export default CategoryButton;

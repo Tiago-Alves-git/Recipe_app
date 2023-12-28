@@ -1,33 +1,70 @@
-.header-nav {
+/* Adicione estilos específicos para o cabeçalho */
+header {
+  align-items: center; /* Alinha verticalmente no centro */
+  color: black; /* Cor do texto */
+  display: flex;
+  gap: 10px;
+  justify-content: space-between; /* Alinha os itens nas extremidades */
+  padding: 10px; /* Espaçamento interno */
+}
+
+/* Estilize o logo-left */
+.logo-left {
   align-items: center;
   display: flex;
-  justify-content: center;
-  padding: 20px 0;
 }
 
-.header-nav span {
-  flex: 1;
-  margin-left: 15px;
+.logo-left b {
+  margin-left: 5px; /* Espaçamento entre "Recipes" e "APP" */
 }
 
-.header-nav .header-nav--items {
-  margin-right: 15px;
+/* Estilize os icons-right */
+.icons-right {
+  align-items: center;
+  display: flex;
+  gap: 10px;
 }
 
-.header-nav .header-nav--items button {
-  background-color: transparent;
-  border: none;
-  margin-right: 10px;
+/* Estilize o title para estar no centro */
+.title {
+  flex-grow: 1; /* Cresce para ocupar o espaço restante */
+  text-align: center;
 }
 
-.header-title--wrapper {
+.SearchBarHidden {
   align-items: center;
   display: flex;
   flex-direction: column;
 }
 
-.header-title--wrapper span {
-  font-size: 2rem;
-  font-weight: 600;
-  text-transform: uppercase;
+/* styles.css (ou o nome que preferir) */
+.iconSearch {
+  background-color: transparent; /* Sem fundo */
+  border: none;
+  cursor: pointer;
+  padding: 2px; /* Remova o preenchimento padrão */
+  transition: box-shadow 0.3s ease-in-out;
+
+  /* Adiciona uma transição suave para a sombra */
+}
+
+
+.iconSearch img {
+  transition: transform 0.3s ease-in-out;
+}
+
+.iconSearch:hover {
+  transform: scale(1.1); /* Aumenta ligeiramente o tamanho da imagem ao passar o mouse */
+}
+
+
+@media screen and ( max-width : 600px ) {
+
+  .logo-left img {
+    width: 30px; /* Ajuste conforme necessário para telas menores */
+  }
+
+  .icons-right img {
+    width: 20px; /* Ajuste conforme necessário para telas menores */
+  }
 }

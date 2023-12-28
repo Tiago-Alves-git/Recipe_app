@@ -1,0 +1,25 @@
+.category-container {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  padding: 20px;
+}
+
+.category-btn {
+  background-color: white;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  color: #333;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 10px 20px;
+  transition: background-color 0.3s , color 0.3s , border-color 0.3s;
+}
+
+.category-btn:hover {
+  background-color: #333;
+  border-color: #333;
+  color: white;
+}

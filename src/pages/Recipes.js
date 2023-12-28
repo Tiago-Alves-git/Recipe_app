@@ -1,10 +1,8 @@
 import useRecipes from '../hooks/useRecipes';
 import useCategories from '../hooks/useCategories';
 import useBasePath from '../hooks/useBasePath';
-
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-
 import '../Style/Recipes.css';
 import CategoryButton from '../components/CategoryButton';
 import RecipeCards from '../components/RecipeCards';

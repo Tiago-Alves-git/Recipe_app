@@ -50,7 +50,7 @@ function SearchBar() {
   }
 
   return (
-    <div>
+    <div className="SearchBarHidden">
       <form className="search-bar" onSubmit={ handleSubmit }>
         <input
           type="text"

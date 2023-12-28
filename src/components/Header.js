@@ -5,14 +5,13 @@ import { useDispatch } from 'react-redux';
 
 import IconProfile from '../images/profileIcon.svg';
 import IconSearch from '../images/searchIcon.svg';
-import { actionSearch } from '../redux/actions';
 import PageIcon from './PageIcon';
 import SearchBar from './SearchBar';
 
 import '../Style/Header.css';
 
 function Header(props) {
-  const { title, search } = props;
+  const { title } = props;
   const [searchOpen, setSearchOpen] = useState(false);
   const dispatch = useDispatch();
 
@@ -23,40 +22,38 @@ function Header(props) {
 
   return (
     <header>
-      <nav className="header-nav">
+      <div className="logo-left">
         <span>
           Recipes
           <b>APP</b>
         </span>
-        <div className="header-nav--items">
-          {
-            search
-              && (
-                <button
-                  type="button"
-                  onClick={ handleClick }
-                >
-                  <img
-                    src={ IconSearch }
-                    data-testid="search-top-btn"
-                    alt="search"
-                  />
-                </button>
-              )
-          }
-          <Link to="/profile">
-            <img src={ IconProfile } alt="profile" data-testid="profile-top-btn" />
-          </Link>
-        </div>
-      </nav>
-
-      <div className="header-title--wrapper">
+      </div>
+      <div className="title">
         <PageIcon title={ title } />
         <span data-testid="page-title">{ title }</span>
       </div>
       {
         searchOpen && (<SearchBar />)
       }
+      <div className="icons-right">
+        <button
+          type="button"
+          onClick={ handleClick }
+          className="iconSearch"
+        >
+          <img
+            src={ IconSearch }
+            alt="search"
+          />
+        </button>
+        <Link to="/profile">
+          <img
+            src={ IconProfile }
+            alt="profile"
+            className="iconSearch"
+          />
+        </Link>
+      </div>
     </header>
   );
 }

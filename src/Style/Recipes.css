@@ -1,7 +1,80 @@
-.cards {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin: 15px;
-  margin-bottom: 70px;
+.recipe-container {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  justify-content: center;
+}
+
+/* Estilo base do card (para telas maiores) */
+.recipe-card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 16px;
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out;
+  width: 100%;
+}
+
+.recipe-card:hover {
+  transform: scale(1.05);
+}
+
+.recipe-image {
+  height: 200px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.recipe-content {
+  padding: 16px;
+}
+
+.recipe-title {
+  color: #333;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.recipe-description {
+  color: #666;
+  font-size: 14px;
+}
+
+.recipe-action {
+  background-color: #3498db;
+  border-radius: 5px;
+  color: white;
+  display: block;
+  margin-top: 12px;
+  padding: 8px 12px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.recipe-action:hover {
+  background-color: #2980b9;
+}
+
+/* Media queries para tornar o layout responsivo */
+
+/* Para telas menores, ajusta o tamanho do card */
+
+@media screen and ( max-width : 768px ) {
+
+  .recipe-card {
+    margin: 16px 0;
+    width: 100%;
+  }
+}
+
+/* Para telas ainda menores, ajusta a altura da imagem */
+
+@media screen and ( max-width : 480px ) {
+
+  .recipe-image {
+    height: 150px;
+  }
 }

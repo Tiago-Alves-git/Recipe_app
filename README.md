@@ -50,18 +50,18 @@ Antes de começar, certifique-se de ter instalado:
    cd CookBook-App
 3. Instale as dependências:
    ```bash
-  npm install
-  # ou
-  yarn install
+   npm install
+   # ou
+   yarn install
 4. Inicie a aplicação:
    ```bash
-  npm start
-  # ou
-  yarn start
+   npm start
+   # ou
+   yarn start
 
- ### Como Usar
+### Como Usar
 Após iniciar a aplicação, abra o navegador e acesse a porta ultilizada para iniciar o projeto (O padrão é: http://localhost:3000 ). Explore as receitas, inicie uma receita, adicione-a aos favoritos e gerencie suas preferências na página do usuário.
 
- ### Contribuição
+### Contribuição
 Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e pull requests para melhorar o CookBook App.
 
