@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import './Recommendations.css';
+import '../Style/Recommendations.css';
 
 function Recommendations({ recommendations }) {
   const location = useLocation();

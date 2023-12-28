@@ -1,0 +1,13 @@
+.loginForms {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  height: 100vh;
+  justify-content: center;
+}
+
+.loginForms form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

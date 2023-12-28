@@ -9,7 +9,7 @@ import { actionSearch } from '../redux/actions';
 import PageIcon from './PageIcon';
 import SearchBar from './SearchBar';
 
-import './Header.css';
+import '../Style/Header.css';
 
 function Header(props) {
   const { title, search } = props;

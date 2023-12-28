@@ -7,7 +7,7 @@ import Recommendations from '../components/Recommendations';
 import useBasePath from '../hooks/useBasePath';
 import useRecipe from '../hooks/useRecipe';
 import shareIcon from '../images/shareIcon.svg';
-import './RecipeDetails.css';
+import '../Style/RecipeDetails.css';
 import { getDrinksForRecommendation } from '../helpers/drinkApi';
 import { getMealsForRecommendation } from '../helpers/foodApi';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';

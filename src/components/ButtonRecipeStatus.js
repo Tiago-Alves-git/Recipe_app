@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 
-import './ButtonRecipeStatus.css';
+import '../Style/ButtonRecipeStatus.css';
 
 function ButtonRecipeStatus(props) {
   const { id, type } = props;

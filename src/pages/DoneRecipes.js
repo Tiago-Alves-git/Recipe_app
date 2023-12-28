@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
-import '../index.css';
+import '../Style/index.css';
 
 function DoneRecipes() {
   const [doneRecipes, setdoneRecipes] = useState([]);
@@ -45,30 +45,33 @@ function DoneRecipes() {
   return (
     <div>
       <Header title="Done Recipes" />
-      <button
-        type="button"
-        data-testid="filter-by-meal-btn"
-        onClick={ filterMeals }
-      >
-        Meals
+      <div className="category-container">
+        <button
+          type="button"
+          data-testid="filter-by-meal-btn"
+          onClick={ filterMeals }
+          className="category-btn"
+        >
+          Meals
 
-      </button>
-      <button
-        type="button"
-        data-testid="filter-by-drink-btn"
-        onClick={ filterDrinks }
-      >
-        Drinks
+        </button>
+        <button
+          type="button"
+          data-testid="filter-by-drink-btn"
+          onClick={ filterDrinks }
+        >
+          Drinks
 
-      </button>
-      <button
-        type="button"
-        data-testid="filter-by-all-btn"
-        onClick={ filterAll }
-      >
-        All
+        </button>
+        <button
+          type="button"
+          data-testid="filter-by-all-btn"
+          onClick={ filterAll }
+        >
+          All
 
-      </button>
+        </button>
+      </div>
       {
         copied === true ? <p>Link copied!</p> : ''
       }

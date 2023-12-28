@@ -8,7 +8,7 @@ import useRecipe from '../hooks/useRecipe';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-import './RecipeDetails.css';
+import '../Style/RecipeDetails.css';
 import { getDrinksForRecommendation } from '../helpers/drinkApi';
 import { getMealsForRecommendation } from '../helpers/foodApi';
 

@@ -8,7 +8,7 @@ import RecipeDetails from './pages/RecipeDetails';
 import RecipeInProgress from './pages/RecipeInProgress';
 import Recipes from './pages/Recipes';
 
-import './App.css';
+import './Style/App.css';
 
 function App() {
   return (

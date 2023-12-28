@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
-import '../index.css';
+import '../Style/index.css';
 
 function FavoriteRecipes() {
   const [favoriteRecipes, setfavoriteRecipes] = useState([]);
