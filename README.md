@@ -51,7 +51,7 @@ Antes de começar, certifique-se de ter instalado:
 3. Instale as dependências:
   ```bash
   npm install
-# ou
+  # ou
   yarn install
 4. Inicie a aplicação:
   ```bash
