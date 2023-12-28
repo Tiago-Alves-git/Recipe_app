@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import '../Style/login.css';
 import React from 'react';
 import { connect } from 'react-redux';
-import { actionLogin } from '../redux/actions';
+import LoginForms from '../components/LoginForms';
 
 class Login extends React.Component {
   constructor() {
@@ -15,6 +15,7 @@ class Login extends React.Component {
   }
 
   handleInputChange = (event) => {
+    console.log(event);
     const { name } = event.target;
     const { target } = event;
     const { value } = target;
@@ -39,8 +40,7 @@ class Login extends React.Component {
 
   changePage = () => {
     const { email } = this.state;
-    const { history, dispatch } = this.props;
-    dispatch(actionLogin(email));
+    const { history } = this.props;
     localStorage.setItem('user', JSON.stringify({ email }));
     history.push('/meals');
   };
@@ -48,46 +48,18 @@ class Login extends React.Component {
   render() {
     const { email, senha, button } = this.state;
     return (
-      <div className="loginForms">
-        <form>
-          <label htmlFor="e-mail">
-            E-mail:
-            <input
-              type="text"
-              name="email"
-              id="e-mail"
-              data-testid="email-input"
-              onChange={ this.handleInputChange }
-              value={ email }
-            />
-          </label>
-          <label htmlFor="senha">
-            Senha:
-            <input
-              type="password"
-              name="senha"
-              id="senha"
-              data-testid="password-input"
-              onChange={ this.handleInputChange }
-              value={ senha }
-            />
-          </label>
-        </form>
-        <button
-          type="button"
-          disabled={ button }
-          data-testid="login-submit-btn"
-          onClick={ this.changePage }
-        >
-          Entrar
-        </button>
-      </div>
+      <LoginForms
+        email={ email }
+        senha={ senha }
+        button={ button }
+        changePage={ this.changePage }
+        handleInputChange={ this.handleInputChange }
+      />
     );
   }
 }
 
 Login.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
