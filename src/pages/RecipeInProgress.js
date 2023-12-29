@@ -112,7 +112,7 @@ function RecipeInProgress() {
 
   return (
     <>
-      <Header search title={ basePath === 'meals' ? 'Meals' : 'Drinks' } />
+      <Header search title={ basePath === 'meals/in-progress' ? 'Meals' : 'Drinks' } />
       <div className="Recipe-Details-Container">
         <div className="wrap-details-ingredients">
           <CardDetails

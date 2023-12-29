@@ -1,6 +1,7 @@
 /* Adicione estilos específicos para o cabeçalho */
 header {
   align-items: center; /* Alinha verticalmente no centro */
+  background-color: white;
   color: black; /* Cor do texto */
   display: flex;
   gap: 10px;

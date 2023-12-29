@@ -1,4 +1,27 @@
 .footer {
+  align-items: center;
+  background-color: white; /* Cor de fundo escura */
   bottom: 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra suave */
+  display: flex;
+  height: 60px;
+  justify-content: space-around;
   position: fixed;
+  width: 100%;
+}
+
+.footer button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.footer img {
+  height: 30px;
+  width: 30px;
+}
+
+/* Estilo para os botões */
+.footer button:hover {
+  transform: scale(1.1); /* Efeito de escala ao passar o mouse */
 }

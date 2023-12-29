@@ -8,8 +8,6 @@ import RecipeDetails from './pages/RecipeDetails';
 import RecipeInProgress from './pages/RecipeInProgress';
 import Recipes from './pages/Recipes';
 
-import './Style/App.css';
-
 function App() {
   return (
     <Switch>

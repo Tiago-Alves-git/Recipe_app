@@ -25,7 +25,7 @@ CardDetails.propTypes = {
   basePath: PropTypes.string.isRequired,
   recipe: PropTypes.shape({
     id: PropTypes.string,
-    alcoholic: PropTypes.bool,
+    alcoholic: PropTypes.string,
     category: PropTypes.string,
     photo: PropTypes.string,
     title: PropTypes.string,
