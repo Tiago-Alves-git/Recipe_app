@@ -14,7 +14,7 @@ function Recommendations({ recommendations }) {
   }
   return (
     <div className="recommendation-container">
-      <h5 className="recommendation-title">Recommendations</h5>
+      <h5 className="recommendation-title">Recommendations :</h5>
       <div className="slider">
         { recommendations?.map((recommendation, index) => (
           <div

@@ -1,20 +1,25 @@
-.card-title {
-  margin-top: 250px;
-  text-align: center;
-}
-
-.copyMessage {
-  background-color: #000000df;
-  border-radius: 4px;
-  color: white;
-  display: none;
-  margin-left: 40px;
-  padding: 5px 12px;
-}
-
-.favBox-container {
+.Recipe-Details-Container {
   align-items: center;
   display: flex;
-  margin-top: 16px;
-  min-height: 30px;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 auto;
+  width: fit-content;
+}
+
+.wrap-details-ingredients {
+  display: flex;
+  gap: 20px;
+  margin-left: 10px;
+  margin-right: 15px;
+}
+
+.wrap-details-recomendations {
+  align-items: stretch;
+  display: flex;
+  gap: 20px;
+  height: 100%;
+  justify-content: center;
+  margin-left: 10px;
+  margin-right: 15px;
 }

@@ -1,0 +1,27 @@
+.favorite-container {
+  align-items: center;
+  display: flex;
+}
+
+.like-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin-right: 10px; /* Ajuste conforme necessário */
+}
+
+.like-button img {
+  height: 30px; /* Ajuste conforme necessário */
+  width: 30px; /* Ajuste conforme necessário */
+}
+
+.copyMessage {
+  color: #28a745; /* Cor verde para indicar sucesso, ajuste conforme necessário */
+  display: none;
+  font-size: 14px;
+  margin-left: 10px; /* Ajuste conforme necessário */
+}
+
+.copyMessage.show {
+  display: inline-block;
+}

@@ -1,0 +1,18 @@
+/* Use estilos específicos conforme necessário */
+.video-container {
+  display: flex;
+  overflow: hidden;
+  padding-bottom: 56.25%; /* Proporção 16:9 para vídeos responsivos */
+  position: relative;
+  width: 100%;
+}
+
+iframe {
+  border: none;
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+
+
+/* Adicione transições ou efeitos conforme necessário */

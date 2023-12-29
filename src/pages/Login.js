@@ -1,62 +1,57 @@
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import '../Style/login.css';
-import React from 'react';
-import { connect } from 'react-redux';
 import LoginForms from '../components/LoginForms';
 
-class Login extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      email: '',
-      senha: '',
-      button: true,
-    };
-  }
+function Login({ history }) {
+  const [state, setState] = useState({
+    email: '',
+    senha: '',
+    button: true,
+  });
 
-  handleInputChange = (event) => {
-    console.log(event);
-    const { name } = event.target;
-    const { target } = event;
-    const { value } = target;
-    this.setState({
-      [name]: value,
-    }, this.validaForm);
-  };
-
-  validaForm = () => {
-    const { email, senha } = this.state;
+  const validaForm = () => {
+    const { email, senha } = state;
     const number = 7;
 
     const emailRegex = /\S+@\S+\.\S+/;
     const validPassword = senha.length >= number;
     const result = emailRegex.test(email) && validPassword;
 
-    this.setState({
+    setState((prevState) => ({
+      ...prevState,
       button: !result,
-    });
+    }));
+
     return !result;
   };
 
-  changePage = () => {
-    const { email } = this.state;
-    const { history } = this.props;
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setState((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+    validaForm();
+  };
+
+  const changePage = () => {
+    const { email } = state;
     localStorage.setItem('user', JSON.stringify({ email }));
     history.push('/meals');
   };
 
-  render() {
-    const { email, senha, button } = this.state;
-    return (
-      <LoginForms
-        email={ email }
-        senha={ senha }
-        button={ button }
-        changePage={ this.changePage }
-        handleInputChange={ this.handleInputChange }
-      />
-    );
-  }
+  const { email, senha, button } = state;
+
+  return (
+    <LoginForms
+      email={ email }
+      senha={ senha }
+      button={ button }
+      changePage={ changePage }
+      handleInputChange={ handleInputChange }
+    />
+  );
 }
 
 Login.propTypes = {
@@ -65,4 +60,4 @@ Login.propTypes = {
   }).isRequired,
 };
 
-export default connect()(Login);
+export default Login;

@@ -2,23 +2,23 @@ import PropTypes from 'prop-types';
 import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ButtonRecipeStatus from '../components/ButtonRecipeStatus';
-import HeaderDetails from '../components/HeaderDetails';
 import Recommendations from '../components/Recommendations';
 import useBasePath from '../hooks/useBasePath';
 import useRecipe from '../hooks/useRecipe';
-import shareIcon from '../images/shareIcon.svg';
 import '../Style/RecipeDetails.css';
 import { getDrinksForRecommendation } from '../helpers/drinkApi';
 import { getMealsForRecommendation } from '../helpers/foodApi';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
+import Header from '../components/Header';
+import CardDetails from '../components/CardDetails';
+import Favorites from '../components/Favorites';
+import RecipeIngredients from '../components/RecipeIngredients';
+import RecipeVideo from '../components/RecipeVideo';
 
 const copy = require('clipboard-copy');
 
 function RecipeDetails(props) {
   const basePath = useBasePath();
   const { id } = useParams();
-  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
   const [favoritesState, setFavorites] = useState([]);
 
   const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
@@ -75,76 +75,27 @@ function RecipeDetails(props) {
 
   return (
     <>
-      <HeaderDetails />
-      <div className="card">
-        <img
-          className="card-img"
-          data-testid="recipe-photo"
-          src={ recipe.photo }
-          alt={ recipe.title }
-        />
-
-        <div className="card-img-overlay">
-          <div>
-            <p data-testid="recipe-category">
-              {basePath === 'meals' ? recipe.category : recipe.alcoholic}
-            </p>
-          </div>
-          <h5 className="card-title" data-testid="recipe-title">
-            {recipe.title}
-          </h5>
-        </div>
-      </div>
-      <div className="favBox-container">
-        <button
-          type="button"
-          data-testid="favorite-btn"
-          src={ favorites.some((el) => el.id === recipe.id)
-            ? blackHeartIcon : whiteHeartIcon }
-          alt="BlackHeart"
-          onClick={ () => toggleFavorite(recipe) }
-        >
-          <img
-            src={ favorites.some((el) => el.id === recipe.id)
-              ? blackHeartIcon : whiteHeartIcon }
-            alt="BlackHeart"
+      <Header search title={ basePath === 'meals' ? 'Meals' : 'Drinks' } />
+      <div className="Recipe-Details-Container">
+        <div className="wrap-details-ingredients">
+          <CardDetails
+            recipe={ recipe }
+            basePath={ basePath }
           />
-        </button>
-
-        <button type="button" data-testid="share-btn" onClick={ handleCopy }>
-          <img src={ shareIcon } alt="Compartilhar" />
-        </button>
-        <span className="copyMessage" id="copyMessage">
-          Link copied!
-        </span>
-      </div>
-
-      <ul>
-        {recipe.ingredients.map(({ ingredient, measure }, i) => (
-          <li key={ ingredient } data-testid={ `${i}-ingredient-name-and-measure` }>
-            <span>{ingredient}</span>
-            {' - '}
-            <span>{measure}</span>
-          </li>
-        ))}
-      </ul>
-      <p data-testid="instructions">{recipe.instructions}</p>
-      {recipe.video && (
-        <iframe
-          title={ recipe.title }
-          width="340"
-          height="191"
-          src={ `${recipe.video}` }
-          allowFullScreen
-          data-testid="video"
+          <RecipeIngredients recipe={ recipe } />
+        </div>
+        <Favorites
+          favorites={ favorites }
+          handleCopy={ handleCopy }
+          toggleFavorite={ toggleFavorite }
+          recipe={ recipe }
         />
-      )}
-      <Recommendations recommendations={ recommendations } />
-      {doneRecipes.some((e) => Number(e.id) === Number(id)) ? (
-        ''
-      ) : (
+        <div className="wrap-details-recomendations">
+          <RecipeVideo recipe={ recipe } />
+          <Recommendations recommendations={ recommendations } />
+        </div>
         <ButtonRecipeStatus type={ basePath } id={ recipe.id } />
-      )}
+      </div>
     </>
   );
 }

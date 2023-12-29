@@ -1,0 +1,25 @@
+/* styles.css */
+.RecipeCard {
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  padding: 20px;
+  width: 100%;
+}
+
+
+.RecipeCard-img {
+  object-fit: contain;
+  width: 100%;
+}
+
+.RecipeCard-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.RecipeCard-category {
+  font-size: 1rem;
+}

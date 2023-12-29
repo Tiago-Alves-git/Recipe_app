@@ -1,0 +1,29 @@
+/* Adapte as cores e estilos conforme o design da sua aplicação */
+.ingredient-list-container {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.ingredient-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.list-item {
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+}
+
+.list-item:last-child {
+  border-bottom: none;
+}
+
+.Recipe-instructions {
+  color: #333;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-top: 20px;
+}
