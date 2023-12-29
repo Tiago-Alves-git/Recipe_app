@@ -5,7 +5,6 @@ import useBasePath from '../hooks/useBasePath';
 
 function RecipeCards({ Recipes }) {
   const basePath = useBasePath();
-  console.log(Recipes);
 
   return (
     <div className="recipe-container">

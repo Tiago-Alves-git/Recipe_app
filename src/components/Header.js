@@ -17,7 +17,6 @@ function Header(props) {
   };
 
   const handleKeyPress = (event) => {
-    console.log(event.key);
     if (event.key === 'Backspace') {
       handleHome();
     }

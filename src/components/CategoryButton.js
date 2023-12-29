@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import '../Style/ButtonCategory.css';
 
 function CategoryButton({ Categorys, toggleSelectedCategory, selectedCategory }) {
-  console.log(Categorys);
   return (
     <div className="category-container">
       { Categorys.map((category) => (
