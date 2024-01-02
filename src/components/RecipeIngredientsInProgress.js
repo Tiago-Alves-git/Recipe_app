@@ -16,7 +16,9 @@ function RecipeIngredientInProgress({
               data-testid={ `${i}-ingredient-step` }
               style={ {
                 color: 'black',
-                textDecoration: checkedIngredients.some((ing) => ing === ingredient)
+                textDecoration: checkedIngredients.some(
+                  (ing) => ing === `${ingredient} - ${measure}`,
+                )
                   ? 'line-through' : 'none',
               } }
 
@@ -28,8 +30,10 @@ function RecipeIngredientInProgress({
               <input
                 type="checkbox"
                 id={ `${i}-ingredient-step` }
-                checked={ checkedIngredients.some((ing) => ing === ingredient) }
-                onChange={ () => toggleCheckedIngredient(ingredient) }
+                checked={ checkedIngredients.some(
+                  (ing) => ing === `${ingredient} - ${measure}`,
+                ) }
+                onChange={ () => toggleCheckedIngredient(ingredient, measure) }
               />
             </label>
           </li>

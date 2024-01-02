@@ -30,6 +30,7 @@ function Profile() {
         type="button"
         data-testid="profile-done-btn"
         onClick={ doneRecipes }
+        className="category-btn"
       >
         Done Recipes
 
@@ -38,6 +39,7 @@ function Profile() {
         type="button"
         data-testid="profile-favorite-btn"
         onClick={ favoriteRecipes }
+        className="category-btn"
       >
         Favorite Recipes
 
@@ -46,6 +48,7 @@ function Profile() {
         type="button"
         data-testid="profile-logout-btn"
         onClick={ logout }
+        className="category-btn"
       >
         Logout
 

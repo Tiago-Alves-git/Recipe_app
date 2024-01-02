@@ -2,4 +2,14 @@ body {
   background-color: rgb(253, 250, 249);
   font-family: Quicksand , var(--font-family-common);
   min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.NotFavorite {
+  bottom: 50%;
+  color: red;
+  left: 42.5%;
+  position: absolute;
+  right: 30%;
+  top: 50%;
 }

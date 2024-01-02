@@ -53,15 +53,15 @@ function RecipeInProgress() {
     JSON.parse(localStorage.getItem('inProgressRecipes')) || [],
   );
 
-  const toggleCheckedIngredient = (ingredient) => {
-    const found = checkedIngredients.find((ing) => ing === ingredient);
+  const toggleCheckedIngredient = (ingredient, measure) => {
+    const found = checkedIngredients.find((ing) => ing === `${ingredient} - ${measure}`);
 
     if (found) {
       const newIgn = checkedIngredients.filter((ing) => ing !== found);
       setCheckedIngredients(newIgn);
       localStorage.setItem('inProgressRecipes', JSON.stringify(newIgn));
     } else {
-      const newIgn = [...checkedIngredients, ingredient];
+      const newIgn = [...checkedIngredients, `${ingredient} - ${measure}`];
       setCheckedIngredients(newIgn);
       localStorage.setItem('inProgressRecipes', JSON.stringify(newIgn));
     }
@@ -103,7 +103,7 @@ function RecipeInProgress() {
       image: recipe.photo,
       doneDate: new Date().toISOString(),
     });
-
+    localStorage.removeItem('inProgressRecipes');
     localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
     history.push('/done-recipes');
   };

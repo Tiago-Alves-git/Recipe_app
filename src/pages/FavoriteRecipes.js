@@ -58,6 +58,8 @@ function FavoriteRecipes() {
         type="button"
         data-testid="filter-by-meal-btn"
         onClick={ filterMeals }
+        className="category-btn"
+
       >
         Meals
 
@@ -66,6 +68,7 @@ function FavoriteRecipes() {
         type="button"
         data-testid="filter-by-drink-btn"
         onClick={ filterDrinks }
+        className="category-btn"
       >
         Drinks
 
@@ -74,15 +77,16 @@ function FavoriteRecipes() {
         type="button"
         data-testid="filter-by-all-btn"
         onClick={ filterAll }
+        className="category-btn"
       >
         All
 
       </button>
       {
-        copied === true ? <p>Link copied!</p> : ''
+        copied === true ? <p className="copyMessage">Link copied!</p> : ''
       }
-      {
-        favoriteRecipes.map((recipe, i) => (
+      { favoriteRecipes.length > 0
+        ? favoriteRecipes.map((recipe, i) => (
           <div
             key={ recipe.id }
             className="card"
@@ -143,8 +147,11 @@ function FavoriteRecipes() {
               ) }
             <span data-testid={ `${i}-horizontal-done-date` }>{ recipe.doneDate }</span>
           </div>
-        ))
-      }
+        )) : (
+          <span className="NotFavorite">
+            Não há receitas adicionadas aos favoritos
+          </span>
+        )}
     </div>
   );
 }

@@ -1,13 +1,15 @@
-import clipboardCopy from 'clipboard-copy';
+// import clipboardCopy from 'clipboard-copy';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
+import '../Style/favorite.css';
 import '../Style/index.css';
+
+const copy = require('clipboard-copy');
 
 function DoneRecipes() {
   const [doneRecipes, setdoneRecipes] = useState([]);
-  const [copied, setCopied] = useState(false);
 
   const recipes = JSON.parse(localStorage.getItem('doneRecipes'));
 
@@ -32,14 +34,13 @@ function DoneRecipes() {
     setdoneRecipes(recipes || []);
   };
 
-  const shareRecipe = (id, type) => {
-    const two = 2000;
-    const link = `http://localhost:3000/${type}s/${id}`;
-    clipboardCopy(link);
-    setCopied(true);
+  const handleCopy = async () => {
+    const THREESECONDS = 3000;
+    document.getElementById('copyMessage').style.display = 'inline';
     setTimeout(() => {
-      setCopied(false);
-    }, two);
+      document.getElementById('copyMessage').style.display = 'none';
+    }, THREESECONDS);
+    copy(`http://localhost:3000/${recipe.type}s/${recipe.id}`);
   };
 
   return (
@@ -58,6 +59,7 @@ function DoneRecipes() {
         <button
           type="button"
           data-testid="filter-by-drink-btn"
+          className="category-btn"
           onClick={ filterDrinks }
         >
           Drinks
@@ -66,70 +68,77 @@ function DoneRecipes() {
         <button
           type="button"
           data-testid="filter-by-all-btn"
+          className="category-btn"
           onClick={ filterAll }
         >
           All
 
         </button>
       </div>
-      {
-        copied === true ? <p>Link copied!</p> : ''
-      }
-      {
-        doneRecipes.map((recipe, i) => (
-          <div
-            key={ recipe.id }
-            className="card"
-          >
-            <button
-              type="button"
-              data-testid={ `${i}-horizontal-share-btn` }
-              src={ shareIcon }
-              onClick={ () => { shareRecipe(recipe.id, recipe.type); } }
+      <span className="copyMessage" id="copyMessage">
+        Link copied!
+      </span>
+      <div className="recipe-container">
+        {
+          doneRecipes.map((recipe, i) => (
+            <div
+              key={ recipe.id }
+              className="recipe-card"
             >
-              <img src={ shareIcon } alt="compartilhar" />
-            </button>
-
-            <Link
-              to={ `/${recipe.type}s/${recipe.id}` }
-            >
-              <img
-                data-testid={ `${i}-horizontal-image` }
-                className="card-img"
-                src={ recipe.image }
-                alt={ recipe.name }
-              />
-              <span data-testid={ `${i}-horizontal-name` }>{ recipe.name }</span>
-            </Link>
-            {recipe.tags.slice(0, 2).map((tag) => (
-              <span
-                key={ tag }
-                data-testid={ `0-${tag}-horizontal-tag` }
+              <div className="DoneRecipeTopContainer">
+                <span className="RecipeCard-title">{ recipe.name }</span>
+                <button
+                  type="button"
+                  data-testid={ `${i}-horizontal-share-btn` }
+                  src={ shareIcon }
+                  onClick={ handleCopy }
+                  className="category-btn"
+                >
+                  <img src={ shareIcon } alt="compartilhar" />
+                </button>
+              </div>
+              <Link
+                to={ `/${recipe.type}s/${recipe.id}` }
               >
-                { tag }
-              </span>
-            ))}
+                <img
+                  data-testid={ `${i}-horizontal-image` }
+                  className="RecipeCard-img"
+                  src={ recipe.image }
+                  alt={ recipe.name }
+                />
+              </Link>
+              <div className="DoneRecipeBotContainer">
+                {recipe.tags.slice(0, 2).map((tag) => (
+                  <span
+                    className="RecipeCard-category"
+                    key={ tag }
+                  >
+                    { tag }
+                  </span>
+                ))}
 
-            {recipe.type === 'meal'
-              ? (
-                <span
-                  data-testid={ `${i}-horizontal-top-text` }
-                >
-                  { `${recipe.nationality} - ${recipe.category}` }
+                {recipe.type === 'meal'
+                  ? (
+                    <span
+                      className="RecipeCard-category"
+                    >
+                      { `${recipe.nationality} - ${recipe.category}` }
 
-                </span>
-              )
-              : (
-                <span
-                  data-testid={ `${i}-horizontal-top-text` }
-                >
-                  { recipe.alcoholicOrNot }
-                </span>
-              ) }
-            <span data-testid={ `${i}-horizontal-done-date` }>{ recipe.doneDate }</span>
-          </div>
-        ))
-      }
+                    </span>
+                  )
+                  : (
+                    <span
+                      className="RecipeCard-category"
+                    >
+                      { recipe.alcoholicOrNot }
+                    </span>
+                  ) }
+                <span className="RecipeCard-category">{ recipe.doneDate }</span>
+              </div>
+            </div>
+          ))
+        }
+      </div>
     </div>
   );
 }

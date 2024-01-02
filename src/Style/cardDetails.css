@@ -23,3 +23,16 @@
 .RecipeCard-category {
   font-size: 1rem;
 }
+
+.DoneRecipeBotContainer {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+
+.DoneRecipeTopContainer {
+  align-items: center;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}

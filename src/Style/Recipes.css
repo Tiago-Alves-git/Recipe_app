@@ -3,6 +3,8 @@
   gap: 16px;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   justify-content: center;
+  margin: 0 auto; /* Para centralizar o contêiner na tela */
+  margin-right: 70px;
 }
 
 /* Estilo base do card (para telas maiores) */
